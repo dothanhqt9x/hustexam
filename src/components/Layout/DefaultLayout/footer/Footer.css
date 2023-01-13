@@ -1,0 +1,48 @@
+.link{
+    color:black;
+}
+/* Contact section */
+.footer{
+    background-color: #040B24;
+    color: white;
+    height: 300px;
+}
+.footer a{
+    text-decoration: none;
+    color: white;
+}
+.h2-footer{
+    position: relative;
+    top: 50px;
+    font-weight: 420;
+    font-size: 180%;
+}
+
+.column-footer a{
+    position: relative;
+    top: 80px;
+    line-height: 80px;
+    display:flex;
+}
+.column-footer h3{
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 110%;
+}
+.column-footer h4{
+    color: #475693;
+    margin-bottom: 8px;
+    font-weight: 450;
+    font-size: 90%;
+    margin-left: 15px;
+}
+
+.column-footer a:hover,
+.column-footer a:active{
+    transform: translateY(-4px);
+  }
+
+.row-footer{
+    display: grid;
+    grid-template-columns: 40% 40% 40%;
+}

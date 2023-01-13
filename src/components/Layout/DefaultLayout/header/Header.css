@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+.clearfix::after{
+  content: " ";
+  display: table;
+  clear: both;
+}
+body, html {
+    font-family: 'Barlow', sans-serif;;
+}
+.App-header{
+  display: flex;
+  margin-top: 5px;
+}
+.logo{
+  width: 20px;
+  height: 35px;
+  margin-left: 25px;
+  margin-top: 10px;
+}
+
+.app-name{
+  color: #002ead;
+  font-size: 150%;
+  font-weight: 700;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.nav{
+  border: 1px solid white;
+  padding-right: 20px; 
+  margin-top: 10px;
+  width: fit-content; 
+  background-color: white;
+}
+
+/* .navbar-collapse{
+  margin-left: 400px;
+  margin-right: 0px;
+  width: 200px;
+} */
+
+.nav-link{
+  color: #303C6C;
+  font-weight: 500;
+  margin-left:40px;
+  transition: border-bottom 2s;
+  width: 90px;
+}
+
+.nav-link:hover{
+  transform: translateY(-4px);
+}
+
+.nav-icon{
+  font-size: 100%;
+  position: absolute;
+  top: 25px;
+  right: 100px;
+  display: none;
+}
+
+.user-info{
+  display: inline-flex;
+  /* width: 180px; */
+  position: relative;
+  left: 270px;
+  /* font-size: 100%; */
+  /* top: 10px; */
+}
+.avatar{
+  vertical-align: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.dropdown-menu{
+  position: relative;
+  left: 1000px;
+}
+.dropdown-menu a{
+  text-decoration: none;
+  color: black;
+  font-size: 90%;
+  padding-left: 5px;
+}
+
+.user-info button{
+  /* margin-top: 3px; */
+  /* margin-left: 10px; */
+  font-size: 110% !important;
+  font-weight: 500;
+  color: #002ead !important;
+}
+
+.dropdown-menu li:hover{
+  background-color: rgb(242, 241, 241);
+}
+
+.btn-header{
+  margin-left: 200px;
+  margin-top: 10px;
+}
+.Header button{
+  text-decoration: none;
+  background-color: rgb(109, 114, 186);
+  padding-bottom: 10px;
+  margin-left: 30px;
+    width: 100px;
+    height: 40px;
+}

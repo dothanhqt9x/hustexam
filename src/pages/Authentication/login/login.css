@@ -1,0 +1,118 @@
+/* .login{
+    width: 1220px;
+}  */
+.heading-log{
+    background-color: #2A3D82;
+    color: white;
+    height: 250px;
+
+}
+.heading-log h1{
+    font-weight: 800;
+    font-size: 300%;
+    position: relative;
+    top: 50px;
+    left: 40px;
+}
+.main-log{
+    background-color: #FAFAFA;
+    height: 500px;
+}
+.main-log .row{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    text-align: center;
+}
+#column-login{
+    border-style: inherit;
+    border-color: #040B24;
+    background-color: white;
+    margin-top: 20px;
+    /* position: relative;
+    top: 50px;
+    left: 200px;*/
+    height: 420px;
+}
+.column-log h2{
+  color: #F4976C;
+  font-weight: 640;
+  font-size: 300%;
+  position: relative;
+  top: 10px;
+}
+/* .column-log select{
+  width: 80%;
+  position: relative;
+  top: 40px;
+} */
+.column-log h3{
+    color: black;
+    position: relative;
+    top: 25px;
+    margin-bottom: 20px;
+    font-weight: 490;
+    font-size: 110%;
+}
+.column-log input, select{
+    color: #6B6B6B;
+    position: relative;
+    top: 20px;
+    width: 90%;
+    height: 50px;
+    background-color: #FAFAFA;
+    border-color: #FAFAFA;
+    border-radius: 7px 7px 7px 7px;
+    border-top: 2px;
+    border-left: 2px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+.form-group {
+    display: flex;
+    margin-left: 40px;
+    flex-direction: column;
+}
+.form-group.invalid .form-control {
+    border-color: #f33a58;
+}
+  
+.form-group.invalid .form-message {
+    color: #f33a58;
+}
+  
+.form-message {
+    font-size: 1rem;
+    line-height: 1.6rem;
+    padding: 4px 0 0;
+}
+.column-log button{
+    position: relative;
+    top: 40px;
+    width: 80%;
+    height: 50px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+}
+.btn-login{
+    color: white;
+    background-color:#2A3D82;
+    border-color: #2A3D82;
+    border-radius: 7px 7px 7px 7px;
+}
+.btn-signup{
+    background-color: #e4e4e4;
+    border-color: #e4e4e4;
+    border-radius: 7px 7px 7px 7px;
+    color: black !important;
+}
+.btn-signup:hover{
+    background-color:rgb(239, 230, 230);
+    transition: 0.7s;
+}
+.btn-login:hover {
+    color: #fff;
+    background-color:#002ead;
+    transition: 0.7s;
+}
+

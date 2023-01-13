@@ -1,0 +1,26 @@
+#column-info-user input{
+    width: 50%;
+    margin-left: 30px;
+    margin-bottom: 10px;
+    width: 400px;
+    height: 35px;
+    font-size: 90%;
+    font-weight: 450;
+    color: #999;
+    padding-left: 5px;
+}
+
+#column-info-user select {
+    width: 400px;
+    height: 35px;
+    margin-left: 30px;
+    background-color: white;
+    border: inherit;
+}
+
+.btn-save{
+    padding-bottom: 10px;
+    position:relative;
+    left: 480px;
+    margin-top: 30px;
+}
