@@ -1,9 +1,8 @@
 // import { point, time } from '../TakeExam/Take_Exam'
 import './HistoryDetail.css'
 import {Routes, Route, Link} from 'react-router-dom';
-import Result from '../Result/Result';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import HistoryList from '../history_list/HistoryList';
 function QuestionItem(question){
             const ansChar = ['A','B','C','D','E','F'];
             return(
@@ -56,7 +55,7 @@ function HistoryDetail(){
                 </div>
                 <Link to='/historylist'>Finish review</Link>
                  <Routes>
-                    <Route path="/historylist/*" element={<Result/>} />
+                    <Route path="/historylist/*" element={<HistoryList/>} />
                 </Routes> 
             </div>
         </div>

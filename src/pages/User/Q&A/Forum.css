@@ -24,7 +24,7 @@
 .question-content{
 }
 .question-content h4{
-    font-size: 18px;
+    font-size: 16px;
     position: relative;
     left: 10px;
     background-color: white;
@@ -36,7 +36,7 @@
     font-size: 15px;
     margin-top: 15px;
     position:relative;
-    left: 730px;
+    left: 680px;
     bottom: 15px;
 }
 

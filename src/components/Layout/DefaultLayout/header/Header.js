@@ -9,7 +9,7 @@ import UserInfo from '../../../../pages/User/user_info_detailed/UserInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutStart, logOutSuccess } from '../../../../redux/authSlice';
 import { getHistory } from '../../../../redux/apiRequest';
-import e from 'cors';
+
 function Header() {
   const userInfo = useSelector(state => state.user.user.userInfo);
   const list = useSelector(state => state.history.history.list);
@@ -36,7 +36,7 @@ function Header() {
           return;
         }
         else
-        getHistory(dispatch, navigate);
+        getHistory(dispatch);
   }
   return (
     <div className="Header"> 
@@ -47,13 +47,17 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
-            <a className="nav-link active"  href={url} onClick={navigateHome}>Trang chủ</a>
+            <a className="nav-link"  href={url} onClick={navigateHome}>Trang chủ</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link"  href={url}>News</a>
+              <a className="nav-link"  href={url} onClick={() => {
+                navigate('/homeadmin')
+              }}>News</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link"  href={url}>Q&A</a>
+              <a className="nav-link"  href='#!' onClick={() => {
+                  navigate('/forum');
+              }}>Q&A</a>
             </li>
             <li className="nav-item">
               <a className="nav-link"  href='#footer'>Liên hệ</a>

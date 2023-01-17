@@ -1,91 +1,64 @@
+import { useEffect, useState } from 'react'
 import './Forum.css'
-const questions = [
-    {
-        user: 'Chu Huu Phuc',
-        content: 'Cử nhân phải học bao nhiêu tín chỉ để ra trường?',
-        comments: [
-            {
-                user: 'Nguyen Van An',
-                comment: '135 tín',
-                subComments: [
-                    {
-                        user: 'Chu Huu Phuc',
-                        reply: 'Cảm ơn bạn'
-                    }
-                ],
-            },
-            {
-                user: 'Nguyen Van Binh',
-                comment: '140 tín',
-                subComments: [
-                    {
-                        user: 'Nguyen Van An',
-                        reply: '135 tín chứ bạn?'
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        user: 'Do Van Thanh',
-        content: 'Phải đạt tối thiểu bao nhiêu điểm rèn luyện mỗi kì để không bị cảnh cáo?',
-        comments: [
-            {
-                user: 'Le Van An',
-                comment: '50 điểm nhá',
-                subComments: [
-                    {
-                        user: 'Do Van Thanh',
-                        reply: 'Cam on ban'
-                    }
-                ]
-            },
-            {
-                user: 'Le Van Binh',
-                comment: 'Trên 50 điểm là được bạn ơi',
-                subComments: [
-                    {
-                        user: 'Do Van Thanh',
-                        reply: 'Cam on ban'
-                    },
-                    {
-                        user: 'Do Van Thanh',
-                        reply: 'Cam on ban'
-                    }
-                ]
-            },
-            {
-                user: 'Tran Van Cong',
-                comment: '50',
-                subComments: [
-                    {
-                        user: 'Do Van Thanh',
-                        reply: 'Cam on ban'
-                    }
-                ]
-            },
-        ]
-    }
-]
+import { getAllPosts } from '../../../redux/apiRequest'
+import { useDispatch, useSelector } from 'react-redux'
+import { Fragment } from 'react';
+import { postQuestion } from '../../../redux/apiRequest';
+import { addComment } from '../../../redux/apiRequest';
+
 function Forum(){
+    const dispatch = useDispatch();
+    useEffect(() => {
+        getAllPosts(dispatch);
+    },[])
+    const listPosts = useSelector(state => state.post.posts.allPosts);
+    const user = useSelector(state => state.auth.login.currentUser);
+
+    const [show, setShow] = useState(false);
+    const [post, setPost] = useState('');
+    const [comment, setComment] = useState('');
+    const [postId, setPostId] = useState();
+    const newPost = {
+        content: post
+    }
+    const handlePost = () => {
+        postQuestion(user.accessToken, newPost, dispatch);
+    }
+    const newComment = {
+        post_id: postId,
+        content: comment
+    }
+    const handleAddComment = () => {
+        addComment(newComment, dispatch);
+    }
     return(
         <div className='qAnda'>
             <div className='search-box'>
                 <input type="text" placeholder='Nhập để tìm kiếm'/>
                 <button className='btn-search'>Tìm kiếm</button>
-                <button className='btn-add'>Tạo câu hỏi</button>
+                <button className='btn-add' onClick={() => setShow(!show)}>Tạo câu hỏi</button>
+                {
+                    show ? (
+                        <div>
+                            <label htmlFor="new-q">Câu hỏi</label>
+                            <input type="text" name='new-q' id='new-q' onChange={(e) => setPost(e.target.value)}/>
+                            <button onClick={handlePost}>Gửi</button>
+                        </div>
+                    ) : (Fragment)
+                }
             </div>
             <div className='questions-box'>
-            {
-            questions.map((question, index) => {
+            { 
+                listPosts ? (
+            listPosts.map((question, index) => {
                 return(
                     <div key={index} className = 'question'>
                         <div className='question-content'>
-                            <h3 className='id-his'>{question.user}</h3>
+                            <h3 className='id-his'>{question.userId}</h3>
                             <p>Câu hỏi: <h4>{question.content}</h4></p>
                         </div>
-                        <i className='num-of-comments'>{question.comments.length} câu trả lời</i>
-                        <ul className='list-comment'>
+                        <i className='num-of-comments'>{question.time}</i>
+                        {/* <ul className='list-comment'>
                             {question.comments.map((comment, index) => {
                                 return(
                                     <div>
@@ -109,21 +82,21 @@ function Forum(){
                                             }
                                             </div>
                                         </dl>
-                                        {/* <div className='rep-cmt'>
-                                            <input type="text" placeholder='Trả lời'/>
-                                            <a href="#!">Gửi</a>
-                                        </div> */}
                                     </div>
                                     )
                                 })}
-                        </ul>
+                        </ul> */}
                         <div className='rep-question'>
-                            <input type="text" placeholder='Trả lời' />
-                            <a href="#!">Gửi</a>
+                            <input type="text" placeholder='Trả lời' onChange={e => {
+                                setComment(e.target.value);
+                                setPostId(index + 1);
+                            }}/>
+                            <a href="#!" onClick={handleAddComment}>Gửi</a>
                         </div>
                     </div>
                 )
             })
+                ) : (Fragment)
         }
             </div>
         </div>

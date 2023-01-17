@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import './HistoryList.css'
@@ -8,11 +8,6 @@ function HistoryList(){
     const list = useSelector(state => state.history.history.list);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [ID, setID] = useState();
-    const handleSeeDetails = (id) =>{
-        console.log(id);
-        getHistoryDetail(id, dispatch, navigate);
-    }
     return(
         <div className="history-list">
             <h3>Lịch sử làm bài thi</h3>
@@ -24,7 +19,10 @@ function HistoryList(){
                             return(
                                 <div className="times" key={index}>
                                     <li>Lần {index + 1}: {times.name}</li>
-                                    <a href="#!" onClick={handleSeeDetails(times.id)}>Xem chi tiết</a>
+                                    <a href="#!" onClick={() => {
+                                        const id = times.id;
+                                        getHistoryDetail(id, dispatch, navigate);
+                                    }}>Xem chi tiết</a>
                                 </div>
                             )
                         })

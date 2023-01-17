@@ -168,3 +168,18 @@ button h4{
 .list-answers{
     list-style-type: upper-alpha;
 }
+
+.form-add-question input{
+    margin-left: 30px;
+    width: 80%;
+}
+
+.key{
+    display: flex;
+}
+
+.key input{
+    width: 20px;
+    margin-right: 10px;
+    margin-top: 15px;
+}

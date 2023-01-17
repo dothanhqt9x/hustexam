@@ -5,133 +5,33 @@ import './Home_Admin.css'
 import {FaPlus} from 'react-icons/fa'
 import {FaEye} from 'react-icons/fa'
 import {ImBin} from 'react-icons/im'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getAllQuestions } from '../../../redux/apiRequest';
+import { Fragment } from 'react';
+import { addQuestion } from '../../../redux/apiRequest';
 
 const time = 60;
-const questions = [
-    { 
-        questionID: 1,
-        title: 'Để hình thành kỷ luật học tập, sinh viên cần làm gì?',
-        answerA: 'Rèn luyện tính tự giác khi học',
-        answerB: 'Tuân thủ triệt để kế hoạch học tập đã đề ra',
-        answerC: 'Tự rèn luyện bản thân theo kế hoạch học tập',
-        answerD: 'Hình thành thói quen học tập hàng ngày, ghi chép bài, nghe giảng đầy đủ',
-        answerCorrect: 'B',
-        point: 1
-    },
-    {   
-        questionID: 2,
-        title: 'Trường Đại học Bách khoa Hà Nội được phong danh hiệu Anh Hùng Lao động thời kỳ đổi mới năm nào?',
-        answerA: '2000',
-        answerB: '2005',
-        answerC: '2010',
-        answerD: '2015',
-        answerCorrect: 'A',
-        point: 1
-    },
-    {   
-        questionID: 3,
-        title: 'Trong trường hợp nào sau đây thì shipper được vào trong trường?',
-        answerA: 'Shipper giao đồ ăn thì được vào trong trường',
-        answerB: 'Shipper giao hàng hóa thì được vào trong trường',
-        answerC: 'Shipper giao đồ ăn hay hàng hóa đều được vào trong trường',
-        answerD: 'Shipper giao đồ ăn hay hàng hóa đều không được vào trong trường',
-        answerCorrect: 'D',
-        point: 1
-    },
-    {   
-        questionID: 4,
-        title: 'Sinh viên cần lưu ý những quy định nào sau đây?',
-        answerA: 'Sinh viên đến trường phải mang theo thẻ sinh viên, trang phục gọn gàng phù hợp với văn hóa Việt Nam và sự nghiêm túc của trường đại học.',
-        answerB: 'Không được tự ý mang tài sản của trường ra ngoài khuôn viên trường',
-        answerC: 'Sau 18h00 hàng ngày, không được tự ý tụ tập ở các khu vực công cộng thuộc khuôn viên của trường. Mọi hoạt động văn hóa, văn nghệ, thể dục thể thao tổ chức trong trường phải được sự đồng ý cho phép bằng văn bản của Nhà trường.',
-        answerD: 'Không tự ý tổ chức các hoạt động quảng cáo, dịch vụ hoặc tổ chức đánh bạc trong khuôn viên trường dưới mọi hình thức.',
-        answerCorrect: 'D',
-        point: 1
-    },
-    {   
-        questionID: 5,
-        title: ' Trường Đại học Bách khoa Hà Nội được thành lập năm nào?',
-        answerA: 'Năm 1955',
-        answerB: 'Năm 1956',
-        answerC: 'Năm 1957',
-        answerD: 'Năm 1958',
-        answerCorrect: 'B',
-        point: 1
-    },
-    {   
-        questionID: 6,
-        title: ' Chương trình "Cốc trà đá vì cộng đồng" nếu được tổ chức sẽ diễn ra vào ngày nào trong tuần? ',
-        answerA: 'Thứ Sáu',
-        answerB: 'Thứ Ba',
-        answerC: 'Thứ Năm',
-        answerD: 'Thứ Bảy',
-        answerCorrect: 'C',
-        point: 1
-    },
-    {   
-        questionID: 7,
-        title: 'Để đạt được Danh hiệu Sinh viên 5 tốt, bạn cần đáp ứng đủ những tiêu chí nào sau đây?',
-        answerA: 'Đạo đức tốt, Học tập tốt, Tình nguyện tốt, Sức khoẻ tốt, Hội nhập tốt',
-        answerB: 'Đạo đức tốt, Rèn luyện tốt, Tình nguyện tốt, Thể lực tốt, Kĩ năng tốt',
-        answerC: 'Đạo đức tốt, Học tập tốt, Tình nguyện tốt, Thể lực tốt, Hội nhập tốt',
-        answerD: 'Đạo đức tốt, Học tập tốt, Lao động tốt, Thể lực tốt, Hội nhập tốt',
-        answerCorrect: 'C',
-        point: 1
-    },
-    {   
-        questionID: 8,
-        title: 'Hiện tại Đại học Bách khoa Hà Nội có bao nhiêu Trường, Viện đào tạo chuyên ngành?',
-        answerA: '3 Trường và 11 Viện',
-        answerB: '2 Trường và 10 Viện',
-        answerC: '3 Trường và 10 Viện',
-        answerD: '3 Trường và 12 Viện',
-        answerCorrect: 'A',
-        point: 1
-    },
-    {   
-        questionID: 9,
-        title: 'Địa chỉ email của Đoàn Thanh niên trường Đại học Bách khoa Hà Nội?',
-        answerA: 'dtndhbkhn@hust.edu.vn',
-        answerB: 'doanthanhnien@hust.edu.vn',
-        answerC: 'dtn@hust.edu.vn',
-        answerD: 'dtndhbk@hust.edu.vn',
-        answerCorrect: 'C',
-        point: 1
-    },
-    {   
-        questionID: 10,
-        title: 'Địa chỉ fanpage của trường Đại học Bách khoa Hà Nội là?',
-        answerA: 'https://www.facebook.com/dhbk/',
-        answerB: 'https://www.facebook.com/dhbkhanoi',
-        answerC: 'https://www.facebook.com/ctsv.hust.edu.vn/',
-        answerD: 'https://www.facebook.com/hoisinhvienbkhn',
-        answerCorrect: 'B',
-        point: 1
-    },
-    ]
-
-function handleRemoveQuestion(index){
-    console.log('removed');
-    questions.splice(index, 1);
-}
 function QuestionItem(question){
+            const ansChar = ['A','B','C','D','E','F'];
             return(
                 <div className = 'question-ha'>
-                          <div class="body">
-                              <h3 class="id">Câu {question.questionID}</h3>
-                              <p class="title">{question.title}</p>
+                          <div className="body">
+                              <h3 className="id">Câu {question.index}</h3>
+                              <p className="title">{question.question}</p>
                               <div className='question-details'>
                                 <ol className='list-answers'>
-                                    <li><input type="text" defaultValue={question.answerA}/></li>
-                                    <li><input type="text" defaultValue={question.answerB}/></li>
-                                    <li><input type="text" defaultValue={question.answerC}/></li>
-                                    <li><input type="text" defaultValue={question.answerD}/></li>
+                                {question.answers?.map((answer, index) => {
+                                        return(
+                                        <li className='answer-his' key={index}>{answer}</li>
+                                        )
+                                    })}
                                 </ol>
-                                <p>Correct Answer: <input type="text" defaultValue={question.answerCorrect}/></p>
+                                <p>Câu trả lời đúng: {ansChar[question.correctAnswers[0] - 1]} {ansChar[question.correctAnswers[1] - 1]}</p>
                               </div>
                           </div>
-                          <FaEye style={{color: '#24367e', marginRight: '10px'}}/>
-                          <ImBin style={{color: '#F4976C'}} onClick = {handleRemoveQuestion(question.index)}/>
+                          {/* <FaEye style={{color: '#24367e', marginRight: '10px'}}/>
+                          <ImBin style={{color: '#F4976C'}}/> */}
       
                 </div>
             )
@@ -149,43 +49,149 @@ function getTime(){
     return dateString;
 }
 
+var key = [];
+var answers = [];
+var timee = '';
 function HomeAdmin(){
+    const questions = useSelector(state => state.questions.questions.allQuestions);
+    const userLog = useSelector(state => state.auth.login.currentUser);
+    const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    const [image, setImage] = useState();
+    const [title, setTitle] = useState('');
+    const [answerA, setAnswerA] = useState('');
+    const [answerB, setAnswerB] = useState('');
+    const [answerC, setAnswerC] = useState('');
+    const [answerD, setAnswerD] = useState('');
+    const [checkedState, setCheckedState] = useState(new Array(5).fill(false))
+    const handleCheckbox = (position) => {
+        const updatedCheckedState = checkedState.map((item, index) =>
+        index === position ? !item : item );
+        setCheckedState(updatedCheckedState);
+
+        key = updatedCheckedState.reduce((key, currentState, index) => {
+            if(currentState) key.push(index);
+            return key;
+      }, [])
+    }
+    const newQuestion = {
+        question: title,
+        answer: answers,
+        key: key,
+    }
+    useEffect(() => {
+        if(!questions){
+            getAllQuestions(userLog?.accessToken,dispatch);
+        }
+    })
+
+    var formData = new FormData();
+    formData.append('file', image);
+    formData.append('question', newQuestion);
+    // const formData = {
+    //     file: image,
+    //     question: newQuestion
+    // }
+    const handleSave = () => {
+        if(answerA !== '') answers.push(answerA);
+        if(answerB !== '') answers.push(answerB);
+        if(answerC !== '') answers.push(answerC);
+        if(answerD !== '') answers.push(answerD);
+        timee = getTime();
+        // console.log(image); 
+        console.log(newQuestion);
+        addQuestion(formData, dispatch);
+        key = [];
+        answers = []
+    }
     return(
-        <section class="admin-section">
-        <div class="row">
-            <div class="col">
-                <h2>Test information</h2>
-                <form>
-                    <label htmlFor="test-name">Test name</label><br />
-                    <input className="input-test-name" name='test-name' defaultValue="Kiểm tra quy chế" type="text"></input>
+        <section className="admin-section">
+        <div className="row">
+            <div className="col">
+                <h2>Thông tin bài kiểm tra</h2>
+                <form> 
+                    <label htmlFor="test-name">Tên</label><br />
+                    <input className="input-test-name" name='test-name' value="Kiểm tra quy chế kì 20221" type="text"></input>
                 </form>
                 <form>
-                    <label htmlFor="time">Time (minute)</label><br />
+                    <label htmlFor="time">Thời gian (phút)</label><br />
                     <input className="input-time" name='time' defaultValue={time} type="text"></input>
                 </form>
-                <label>Questions</label>
-                <a href="#"><button className='btn-add-question'><FaPlus/><h4>Add question</h4></button></a>
+                <label>Câu hỏi</label>
+                <button className='btn-add-question' onClick={() => setShow(true)}><FaPlus/><h4>Thêm câu hỏi</h4></button>
+                {
+                    show ? (
+                <form className='form-add-question'>
+                    <label htmlFor="image">Hình ảnh</label>
+                    <input type="file" id='image' name='image' 
+                        onChange = { (e) =>setImage(e.target.files[0])}/>
+                    <br />
+                    <label htmlFor="title">Câu hỏi</label>
+                    <input type="text" id='title' name='title' 
+                        onChange = { (e) =>setTitle(e.target.value)}/>
+                    <br />
+                    <label htmlFor="a">Đáp án A</label>
+                    <input type="text" id='a' name='a' 
+                        onChange = { (e) =>setAnswerA(e.target.value)}/>
+                    <br />
+                    <label htmlFor="b">Đáp án B</label>
+                    <input type="text" id='b' name='b' 
+                        onChange = { (e) =>setAnswerB(e.target.value)}/>
+                    <br />
+                    <label htmlFor="c">Đáp án C</label>
+                    <input type="text" id='c' name='c' 
+                        onChange = { (e) =>setAnswerC(e.target.value)}/>
+                    <br />
+                    <label htmlFor="d">Đáp án D</label>
+                    <input type="text" id='d' name='d' 
+                        onChange = { (e) =>setAnswerD(e.target.value)}/>
+                    <br />
+                    <div className='key'>
+                        <label htmlFor="key">Đáp án đúng</label>
+                        <input type="checkbox" name='aa' id='aa' value={1}
+                            checked={checkedState[1]}
+                            onChange={() => {handleCheckbox(1)}}/>
+                        <label htmlFor="aa">A</label>
+                        <input type="checkbox" name='bb' id='bb' value={2}
+                            checked={checkedState[2]}
+                            onChange={() => {handleCheckbox(2)}}/>
+                        <label htmlFor="bb">B</label>
+                        <input type="checkbox" name='cc' id='cc'
+                           value={3}
+                           checked={checkedState[3]}
+                           onChange={() => {handleCheckbox(3)}}/>
+                        <label htmlFor="cc">C</label>
+                        <input type="checkbox" name='dd' id='dd'
+                          value={4}
+                          checked={checkedState[4]}
+                          onChange={() => {handleCheckbox(4)}}/>
+                        <label htmlFor="dd">D</label>
+                    </div>
+                    {/* <label htmlFor="aa">A</label>
+                    <input type="checkbox" name='aa' id='aa'/> */}
+                </form>
+                    ) : (Fragment)
+                }
                 <div className="question-list-ha">
-                    {questions.map((question, index) => (
-                        <QuestionItem
-                            index={index}
-                            questionID={index + 1}
-                            title={question.title}
-                            answerA = {question.answerA}
-                            answerB = {question.answerB}
-                            answerC = {question.answerC}
-                            answerD = {question.answerD}
-                            answerCorrect = {question.answerCorrect}
-                        />
-                    ))}
+                    {
+                      questions ? (
+                        questions.map((question, index) => (
+                            <QuestionItem
+                                index={index + 1}
+                                question={question.question}
+                                answers = {question.answer}
+                                correctAnswers = {question.key}
+                            />
+                    ))) : (Fragment)
+                    }   
                 </div>
             </div>
-            <div class="col" id='col-2'>
+            <div className="col" id='col-2'>
                 <h3>Test summary</h3>
                 <div className='questions-summary'>
                     <label>Questions</label>
                     <div>
-                    <h4 className='num-of-questions' >{questions.length}</h4>
+                    <h4 className='num-of-questions' >{questions?.length}</h4>
                     <p> Elements</p>
                     </div>
                     <a href="#"><FaPlus style={{marginRight: '5px',position: 'relative',top:'2px'}}/>Add question</a>
@@ -198,9 +204,9 @@ function HomeAdmin(){
                     <a href="#"><FaEye style={{marginRight: '5px',position: 'relative',top:'2px'}}/>View results</a>
                     <br />
                     <label>Last edit</label>
-                    <br />
+                    <br />  
                     <p id="last-edit">{getTime()}</p>
-                    <a href="#"><button className='btn-save-changes'><h4>Save changes</h4></button></a>
+                    <a href="#"><button className='btn-save-changes' onClick={handleSave}><h4>Lưu thay đổi</h4></button></a>
                 </div>
             </div>
         </div>

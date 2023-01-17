@@ -54,6 +54,8 @@ import userReducers from './userSlice';
 import submitReducers from './submit';
 import historyReducers from './history';
 import timesReducers from './timesSlice';
+import postReducers from './postSlice';
+import commentReducers from './commentSlice';
 export const store = configureStore({
     reducer:{
         auth: authReducers,
@@ -62,5 +64,7 @@ export const store = configureStore({
         submit: submitReducers,
         history: historyReducers,
         times: timesReducers,
+        post: postReducers,
+        comment: commentReducers,
     }
 })

@@ -17,7 +17,6 @@ function HomeUser() {
         if(userLog){
           if(!questionsList)
           getAllQuestions(userLog?.accessToken, dispatch)
-          if(!user)
           getUserInfo(userLog?.accessToken, dispatch)
         }
      },[])
