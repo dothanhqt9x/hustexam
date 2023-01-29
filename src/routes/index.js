@@ -9,6 +9,7 @@ import UserInfo from '../pages/User/user_info_detailed/UserInfo';
 import HistoryDetail from '../pages/User/history_detail/HistoryDetail';
 import HistoryList from '../pages/User/history_list/HistoryList';
 import Forum from '../pages/User/Q&A/Forum';
+import PostDetail from '../pages/User/Q&A/PostDetail';
 
 const publicRoutes = [
     { path: '/', component: HomeUser},
@@ -21,7 +22,8 @@ const publicRoutes = [
     { path: '/userinfo', component: UserInfo},
     { path: '/historydetail', component: HistoryDetail},
     { path: '/historylist', component: HistoryList},
-    { path: '/forum', component: Forum}
+    { path: '/forum', component: Forum},
+    { path: '/postdetail', component: PostDetail}
 ]
 
 const privateRoutes = []

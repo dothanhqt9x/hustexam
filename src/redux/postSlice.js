@@ -12,6 +12,11 @@ const postSlice = createSlice({
             success: false,
             isFetching: false,
             error: false
+        },
+        postDetail: {
+            postInfo: null,
+            isFetching: false,
+            error: false
         }
     },
     reducers: {
@@ -25,6 +30,17 @@ const postSlice = createSlice({
         getPostsFailed: (state) => {
             state.posts.isFetching = false;
             state.posts.error = true;
+        },
+        getPostDetailStart: (state) => {
+            state.postDetail.isFetching = true;
+        },
+        getPostDetailSuccess: (state, action) => {
+            state.postDetail.isFetching = false;
+            state.postDetail.postInfo = action.payload;
+        },
+        getPostDetailFailed: (state) => {
+            state.postDetail.isFetching = false;
+            state.postDetail.error = true;
         },
         addPostStart: (state) => {
             state.addPost.isFetching = true;
@@ -48,7 +64,10 @@ export const {
     getPostsFailed,
     addPostStart,
     addPostSuccess,
-    addPostFailed
+    addPostFailed,
+    getPostDetailStart,
+    getPostDetailSuccess,
+    getPostDetailFailed,
 } = postSlice.actions;
 
 export default postSlice.reducer;

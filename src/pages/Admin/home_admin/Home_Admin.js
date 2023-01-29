@@ -98,7 +98,7 @@ function HomeAdmin(){
         if(answerC !== '') answers.push(answerC);
         if(answerD !== '') answers.push(answerD);
         timee = getTime();
-        // console.log(image); 
+        console.log(image); 
         console.log(newQuestion);
         addQuestion(formData, dispatch);
         key = [];

@@ -1,0 +1,128 @@
+.question-content-detail{
+    margin-top: 20px;
+    background-color: rgb(248, 248, 248);
+    padding: 5px 0px 5px 10px;
+    border-radius: 5px;
+}
+
+.question-content-detail h4{
+    background-color: white;
+    border-radius: 5px;
+    width: 90%;
+    font-size: 110%;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.question-content-detail i{
+    position: relative;
+    bottom: 30px;
+    left: 230px;
+}
+
+.comment{
+    margin-top: 10px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    height: 100px;
+    padding-top: 5px;
+    margin-bottom: -10px;
+}
+
+.reply-post{
+    font-size: 16px !important;
+    margin-top: 15px;
+    position:relative;
+    left: 900px;
+    bottom: 10px;
+    font-size: 90%;
+}
+
+.reply-comment{
+    font-size: 18px;
+    margin-top: 15px;
+    position:relative;
+    left: 870px;
+    bottom: 25px;
+    font-size: 90%;
+}
+
+.comment h5{
+    font-size: 16px;
+    color: #002ead;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.comment p{
+    margin-left: 30px;
+    background-color: white;
+    padding: 5px 5px 5px 10px;
+    border-radius: 5px;
+    width: 80%;
+    margin-top: -15px;
+}
+.time-comment{
+    position: relative;
+    left: 200px;
+    bottom: 28px;
+    font-size: 90%;
+}
+.time-subcmt{
+    font-weight: 400;
+    position: relative;
+    left: 200px;
+    bottom: 30px;
+    font-size: 90%;
+}
+.sub-cmts h5{
+    font-size: 16px;
+    color: #002ead;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.sub-cmt{
+    position: relative;
+    left: 100px;
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    height: 80px;
+    padding-top: 5px;
+    margin-bottom: 10px;
+    width: 90%;
+}
+
+.sub-cmt p{
+    background-color: white;
+    padding: 5px 0px 5px 10px;
+    border-radius: 5px;
+    width: 74%;
+    font-weight: 400;
+    margin-left: 20px;
+    margin-top: -20px;
+}
+
+.rep-cmt{
+    position: relative;
+    left: 120px;
+    margin-bottom: 10px;
+    margin-top: -20px;
+}
+
+.rep-cmt input{
+    margin-right: 10px;
+    width: 80%;
+}
+
+.rep-question{
+    margin-top: 20px;
+    position: relative;
+    left: 50px;
+    margin-bottom: 10px;
+}
+
+.rep-question input{
+    margin-right: 10px;
+    width: 90%;
+}

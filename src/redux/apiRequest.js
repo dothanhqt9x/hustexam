@@ -6,7 +6,7 @@ import { changeUserInfoFailed, changeUserInfoStart, changeUserInfoSuccess, getUs
 import { submitStart, submitSuccess, submitFailed } from './submit';
 import { getHistoryStart, getHistorySuccess, getHistoryFailed } from './history';
 import { getTimesStart, getTimesSuccess, getTimesFailed } from './timesSlice';
-import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed} from './postSlice';
+import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed} from './postSlice';
 import { addCommentStart, addCommentSuccess, addCommentFailed } from './commentSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
@@ -141,15 +141,26 @@ export const addQuestion = async(formData, dispatch) => {
     }
 }
 
-export const getAllPosts = async (dispatch) => {
+export const getAllPosts = async (page, dispatch) => {
     dispatch(getPostsStart());
     try {
-        const res = await axios.get('/getAllPost/0/10',{
+        const res = await axios.get(`/getAllPost/${page}/10`,{
             headers: { ContentType: 'application/json'},
         })
         dispatch(getPostsSuccess(res.data));
     }catch(err){
         dispatch(getPostsFailed());
+    }
+}
+
+export const getPostDetail = async (id, dispatch, navigate) => {
+    dispatch(getPostDetailStart());
+    try {
+        const res = await axios.get(`/getPostDetail/${id}`)
+        dispatch(getPostDetailSuccess(res.data));
+        navigate('/postdetail')
+    }catch(err){
+        dispatch(getPostDetailFailed());
     }
 }
 
