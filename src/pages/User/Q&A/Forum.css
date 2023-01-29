@@ -17,10 +17,9 @@
     padding-bottom: 10px;
 }
 
-.questions-box .question{
-    margin-top: 20px;
+.search-box{
+    margin-bottom: 15px;
 }
-
 .see-detail{
     position: relative;
     left: 600px;

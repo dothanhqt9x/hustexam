@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
-import { addComment } from '../../../redux/apiRequest';
+import { addComment, replyComment } from '../../../redux/apiRequest';
 import './PostDetail.css'
 
 export default function PostDetail(){
@@ -11,13 +10,20 @@ export default function PostDetail(){
     const [answer, setAnswer] = useState(false);
     const [reply, setReply] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const newComment = {
         post_id: postId,
         content: comment
     }
+    const newSubComment = {
+        content: comment,
+        comment_id: postId
+    }
     const handleAddComment = () => {
         addComment(newComment, dispatch);
+    }
+
+    const handleAddSubComment = () => {
+        replyComment(newSubComment, dispatch);
     }
     return (
         post ? (
@@ -30,6 +36,16 @@ export default function PostDetail(){
                             <p>Câu hỏi: <h4>{post.content}</h4></p>
                             <a href="#!" className='reply-post' onClick={() => setAnswer(!answer)}>Trả lời</a>
                         </div>
+                        { answer ? (
+                        <div className='rep-question'>
+                            <input type="text" placeholder='Trả lời' onChange={e => {
+                                setComment(e.target.value);
+                                setPostId(post.post_id);
+                            }}/>
+                            <a href="#!" onClick={handleAddComment}>Gửi</a>
+                        </div>
+                        ) : Fragment
+                        }
                         <ul className='list-comment'>
                             {post.comment?.map((comment, index) => {
                                 return(
@@ -42,7 +58,20 @@ export default function PostDetail(){
                                                 </span>
                                                 <p>{comment.content}</p>
                                             </div>
-                                            <a href="#!" className='reply-comment' onClick={() => setReply(!reply)}>Phản hồi</a>
+                                            <a href="#!" className='reply-comment' onClick={() => {
+                                                setReply(!reply)
+                                                setPostId(comment.comment_id);
+                                            }}>Phản hồi</a>
+                                            { (reply && (comment.comment_id === postId)) ? (
+                                                <div className='rep-cmt'>
+                                                    <input type="text" placeholder='Phản hồi' onChange={e => {
+                                                        setComment(e.target.value);
+                                                        setPostId(comment.comment_id);
+                                                    }}/>
+                                                    <a href="#!" onClick={handleAddSubComment}>Gửi</a>
+                                                </div>
+                                                    ) : Fragment
+                                                    }
                                             <div className='sub-cmts'>
                                             {comment.sub_comment?.map((subcmt, index) => {
                                                 return(
@@ -59,31 +88,11 @@ export default function PostDetail(){
                                             })
                                             }
                                             </div>
-                                            { reply ? (
-                                                <div className='rep-question'>
-                                                    <input type="text" placeholder='Trả lời' onChange={e => {
-                                                        setComment(e.target.value);
-                                                        setPostId(post.post_id);
-                                                    }}/>
-                                                    <a href="#!" onClick={handleAddComment}>Gửi</a>
-                                                </div>
-                        ) : Fragment
-                        }
                                         </dl>
                                     </div>
                                     )
                                 })}
                         </ul>
-                        { answer ? (
-                        <div className='rep-question'>
-                            <input type="text" placeholder='Trả lời' onChange={e => {
-                                setComment(e.target.value);
-                                setPostId(post.post_id);
-                            }}/>
-                            <a href="#!" onClick={handleAddComment}>Gửi</a>
-                        </div>
-                        ) : Fragment
-                        }
         </div>
         ) : (Fragment)
     )

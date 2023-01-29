@@ -3,29 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 const commentSlice = createSlice({
     name: 'comment',
     initialState:{
-        // comment: {
-        //     allPosts: null,
-        //     isFetching: false,
-        //     error: false,
-        // },
         addComment: {
+            success: false,
+            isFetching: false,
+            error: false
+        },
+        replyComment: {
             success: false,
             isFetching: false,
             error: false
         }
     },
     reducers: {
-        // getPostsStart: (state) => {
-        //     state.posts.isFetching = true;
-        // },
-        // getPostsSuccess: (state, action) => {
-        //     state.posts.isFetching = false;
-        //     state.posts.allPosts = action.payload;
-        // },
-        // getPostsFailed: (state) => {
-        //     state.posts.isFetching = false;
-        //     state.posts.error = true;
-        // },
         addCommentStart: (state) => {
             state.addComment.isFetching = true;
         },
@@ -39,16 +28,29 @@ const commentSlice = createSlice({
             state.addComment.success = false;
             state.addComment.error = true;
         },
+        replyCommentStart: (state) => {
+            state.replyComment.isFetching = true;
+        },
+        replyCommentSuccess: (state) => {
+            state.replyComment.isFetching = false;
+            state.replyComment.error = false;
+            state.replyComment.success = true;
+        },
+        replyCommentFailed: (state) => {
+            state.replyComment.isFetching = false;
+            state.replyComment.success = false;
+            state.replyComment.error = true;
+        },
     }
 })
 
 export const {
-    // getPostsStart,
-    // getPostsSuccess,
-    // getPostsFailed,
     addCommentStart,
     addCommentSuccess,
-    addCommentFailed
+    addCommentFailed,
+    replyCommentStart,
+    replyCommentFailed,
+    replyCommentSuccess
 } = commentSlice.actions;
 
 export default commentSlice.reducer;

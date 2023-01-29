@@ -58,7 +58,7 @@ function HomeUser() {
                 <p>Số lượng câu hỏi: 20</p>
                 <p>Số lần làm bài cho phép: Không giới hạn</p>
                 <div>
-                <button className="btn-takeTest" onClick={handleTakeTest}>Take Test</button>
+                <button className="btn-takeTest" onClick={handleTakeTest}>Làm bài</button>
                 </div>
             </div>
         </div>

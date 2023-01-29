@@ -7,7 +7,7 @@ import { submitStart, submitSuccess, submitFailed } from './submit';
 import { getHistoryStart, getHistorySuccess, getHistoryFailed } from './history';
 import { getTimesStart, getTimesSuccess, getTimesFailed } from './timesSlice';
 import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed} from './postSlice';
-import { addCommentStart, addCommentSuccess, addCommentFailed } from './commentSlice';
+import { addCommentStart, addCommentSuccess, addCommentFailed, replyCommentStart, replyCommentSuccess, replyCommentFailed } from './commentSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -174,6 +174,20 @@ export const addComment = async(newComment, dispatch) => {
         alert('Thêm comment thành công!')
     }catch(err){
         dispatch(addCommentFailed());
+        alert('Error: Comment chưa được thêm ' + err.message);
+    }
+}
+
+export const replyComment = async(subComment, dispatch) => {
+    dispatch(replyCommentStart());
+    try{
+        const res = await axios.post('/addSubComment',subComment,{
+            headers: { ContentType: 'application/json' },
+        })
+        dispatch(replyCommentSuccess(res.data));
+        alert('Thêm phản hồi thành công!')
+    }catch(err){
+        dispatch(replyCommentFailed());
         alert('Error: Comment chưa được thêm ' + err.message);
     }
 }
