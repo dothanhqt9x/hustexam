@@ -144,7 +144,7 @@ export const addQuestion = async(formData, dispatch) => {
 export const getAllPosts = async (page, dispatch) => {
     dispatch(getPostsStart());
     try {
-        const res = await axios.get(`/getAllPost/${page}/10`,{
+        const res = await axios.get(`/getAllPost/${page}/5`,{
             headers: { ContentType: 'application/json'},
         })
         dispatch(getPostsSuccess(res.data));

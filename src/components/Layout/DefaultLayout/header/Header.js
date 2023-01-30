@@ -12,7 +12,6 @@ import { getHistory } from '../../../../redux/apiRequest';
 
 function Header() {
   const userInfo = useSelector(state => state.user.user.userInfo);
-  const list = useSelector(state => state.history.history.list);
   let url = '#';
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,12 +30,9 @@ function Header() {
   }
 
   const handleWatchHistory = (e) => {
-        if(list) {
-          navigate('/historylist')
-          return;
-        }
-        else
-        getHistory(dispatch);
+      getHistory(dispatch);
+      navigate('/historylist')
+
   }
   return (
     <div className="Header"> 

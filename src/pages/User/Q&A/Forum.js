@@ -6,16 +6,16 @@ import { Fragment } from 'react';
 import { postQuestion, getPostDetail } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
 
+var page = 0;
 function Forum(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [page, setPage] = useState(0);
     useEffect(() => {
+        page = 0
         getAllPosts(page, dispatch);
     },[])
     const listPosts = useSelector(state => state.post.posts.allPosts);
     const user = useSelector(state => state.auth.login.currentUser);
-
     const [show, setShow] = useState(false);
     const [post, setPost] = useState('');
     const newPost = {
@@ -60,6 +60,41 @@ function Forum(){
                 ) : (Fragment)
         }
             </div>
+            <nav aria-label="...">
+                <ul className="pagination justify-content-center">
+                    <li className="page-item">
+                    <a className="page-link" href="#!" onClick={() => {
+                            if(page === 0) return;
+                            page--;
+                            getAllPosts(page, dispatch);
+                        }}>Previous</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 0;
+                            getAllPosts(0, dispatch);
+                        }}>1</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 1;
+                            getAllPosts(1, dispatch);
+                        }}>2</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 2;
+                            getAllPosts(2, dispatch);
+                        }}>3</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page++;
+                            getAllPosts(page, dispatch);
+                        }}>Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     )
 }

@@ -3,10 +3,6 @@ import "./Home_User.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllQuestions, getUserInfo } from "../../../redux/apiRequest";
 import { useEffect } from 'react'
-// const user = {
-//   username: "",
-//   mssv: "",
-// };
 import { questionsAnsweredList, point, time } from '../TakeExam/Take_Exam'
 function HomeUser() {
   const userLog = useSelector((state) => state.auth.login?.currentUser);
