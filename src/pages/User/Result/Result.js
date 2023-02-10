@@ -1,7 +1,6 @@
 import './Result.css';
 import {point, time} from '../TakeExam/Take_Exam'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { getHistory } from '../../../redux/apiRequest';
 import { getHistoryDetail } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
@@ -11,11 +10,6 @@ function Result(){
       const list = useSelector(state => state.history.history.list);
       const dispatch = useDispatch();
       const navigate = useNavigate();
-      useEffect(()=>{
-        if(!list){
-          getHistory(dispatch);
-        }
-     },[])
       const handleSeeResult = () => {
           getHistoryDetail(list[list.length - 1].id, dispatch, navigate);
           getHistory(dispatch);

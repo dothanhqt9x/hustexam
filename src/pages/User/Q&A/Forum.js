@@ -23,6 +23,8 @@ function Forum(){
     }
     const handlePost = () => {
         postQuestion(user.accessToken, newPost, dispatch);
+        setShow(false);
+        getAllPosts(page, dispatch);
     }
     return(
         <div className='qAnda'>
@@ -52,7 +54,7 @@ function Forum(){
                         </div>
                         <i className='num-of-comments'>{question.time}</i>
                         <a href="#!" className='see-detail' onClick={() => {
-                            getPostDetail(index + 1, dispatch, navigate);
+                            getPostDetail(5 * page + index + 1, dispatch, navigate);
                         }}>Xem chi tiết</a>
                     </div>
                 )

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './login.css';
-import { loginUser } from '../../../redux/apiRequest';
-import { useDispatch } from 'react-redux';
+import { getAllQuestions, loginUser } from '../../../redux/apiRequest';
+import { useDispatch, useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import {Routes, Route, Link} from 'react-router-dom';
 import Signup from '../signup/signup';
@@ -12,7 +12,7 @@ function Login(){
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const userLog = useSelector((state) => state.auth.login?.currentUser);
     const handleLogin = (e) => {
         e.preventDefault();
         const newUser = {
@@ -20,7 +20,6 @@ function Login(){
             password: password
         }
         loginUser(newUser, dispatch, navigate);
-        // const userLog = useSelector((state) => state.auth.login?.currentUser);
 
         // getUserInfo(userLog?.accessToken, dispatch)
         }
@@ -61,7 +60,7 @@ function Login(){
                         <button type="submit" className="btn-login btn-primary" onClick={handleLogin}>LOG IN</button>
                         <Link to='/signup'><button type="submit" className="btn-signup btn-primary " style={{color: 'white'}}>OR SIGNUP</button></Link>
                         <Routes>
-                            <Route path="/signup" element={<Signup/>}
+                            <Route path="/signup/*" element={<Signup/>}
                             />
                         </Routes> 
                     </form>

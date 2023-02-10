@@ -8,13 +8,15 @@ import { getHistoryStart, getHistorySuccess, getHistoryFailed } from './history'
 import { getTimesStart, getTimesSuccess, getTimesFailed } from './timesSlice';
 import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed} from './postSlice';
 import { addCommentStart, addCommentSuccess, addCommentFailed, replyCommentStart, replyCommentSuccess, replyCommentFailed } from './commentSlice';
+import { addSchoolFailed, addSchoolStart, addSchoolSuccess, changeSchoolNameStart, changeSchoolNameSuccess, getSchoolsFailed, getSchoolsStart, getSchoolsSuccess } from './schoolSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
     try {
         const res = await axios.post('/login',user);
         dispatch(loginSuccess(res.data));
-        navigate('/')
+        if(user.email === 'admin@gmail.com') navigate('/homeadmin')
+        else navigate('/');
     }
     catch (err) {
         dispatch(loginFailed());
@@ -27,6 +29,7 @@ export const registerUser = async(user, dispatch, navigate) => {
     try {
         await axios.post('/register',user);
         dispatch(registerSuccess());
+        alert('Bạn đã đăng ký tài khoản thành công. Vui lòng đăng nhập!');
         navigate('/login');
     }
     catch(err){
@@ -137,7 +140,9 @@ export const addQuestion = async(formData, dispatch) => {
         alert('Thêm câu hỏi thành công!')
     }catch(err){
         dispatch(addQuestionFailed());
-        alert('Error: Câu hỏi chưa được thêm ' + err.message);
+        if(err.message === 'Request failed with status code 400')
+            alert('Câu hỏi đã tồn tại');
+            else alert(err.message);
     }
 }
 
@@ -204,6 +209,46 @@ export const postQuestion = async(accessToken, newQuestion, dispatch) => {
     }catch(err){
         dispatch(addPostFailed());
         alert('Error: Câu hỏi của bạn chưa được thêm');
+    }
+}
+
+export const getAllSchools = async (dispatch) => {
+    dispatch(getSchoolsStart());
+    try {
+        const res = await axios.get('getListSchool',{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getSchoolsSuccess(res.data));
+    }catch(err){
+        dispatch(getSchoolsFailed());
+    }
+}
+
+export const addSchool = async(newSchool, dispatch) => {
+    dispatch(addSchoolStart());
+    try{
+        const res = await axios.post('/createSchool',newSchool,{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(addSchoolSuccess(res.data));
+        alert('Trường/viện đã thêm thành công!')
+    }catch(err){
+        dispatch(addSchoolFailed());
+        alert('Error: ' + err.message);
+    }
+}
+
+export const changeSchoolName = async(newName, dispatch) => {
+    dispatch(changeSchoolNameStart());
+    try{
+        const res = await axios.post('/editSchool',newName,{
+            headers: { ContentType: 'application/json'}
+        })
+        dispatch(changeSchoolNameSuccess(res.data));
+        alert('Thay đổi thành công!')
+    }catch(err){
+        dispatch(changePasswordFailed());
+        alert('Error: ' + err.message);
     }
 }
 

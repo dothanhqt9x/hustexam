@@ -10,10 +10,11 @@ import HistoryDetail from '../pages/User/history_detail/HistoryDetail';
 import HistoryList from '../pages/User/history_list/HistoryList';
 import Forum from '../pages/User/Q&A/Forum';
 import PostDetail from '../pages/User/Q&A/PostDetail';
+import School from '../pages/Admin/School/School';
 
 const publicRoutes = [
     { path: '/', component: HomeUser},
-    { path: '/homeadmin', component: HomeAdmin},
+    { path: '/homeadmin', component: HomeAdmin, layout: 'admin'},
     { path: '/login', component: Login, layout: null},
     { path: '/signup', component: Signup, layout: null},
     { path: '/changepw', component: ChangePassword},
@@ -23,7 +24,8 @@ const publicRoutes = [
     { path: '/historydetail', component: HistoryDetail},
     { path: '/historylist', component: HistoryList},
     { path: '/forum', component: Forum},
-    { path: '/postdetail', component: PostDetail}
+    { path: '/postdetail', component: PostDetail},
+    { path: '/school', component: School, layout: 'admin'}
 ]
 
 const privateRoutes = []

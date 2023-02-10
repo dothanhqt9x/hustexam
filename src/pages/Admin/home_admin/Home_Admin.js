@@ -4,14 +4,13 @@
 import './Home_Admin.css'
 import {FaPlus} from 'react-icons/fa'
 import {FaEye} from 'react-icons/fa'
-import {ImBin} from 'react-icons/im'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllQuestions } from '../../../redux/apiRequest';
+import { getAllQuestions, getAllSchools } from '../../../redux/apiRequest';
 import { Fragment } from 'react';
 import { addQuestion } from '../../../redux/apiRequest';
+import { useNavigate } from 'react-router-dom';
 
-const time = 60;
 function QuestionItem(question){
             const ansChar = ['A','B','C','D','E','F'];
             return(
@@ -63,6 +62,7 @@ function HomeAdmin(){
     const [answerB, setAnswerB] = useState('');
     const [answerC, setAnswerC] = useState('');
     const [answerD, setAnswerD] = useState('');
+    const navigate = useNavigate();
     const [checkedState, setCheckedState] = useState(new Array(5).fill(false))
     const handleCheckbox = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
@@ -80,35 +80,29 @@ function HomeAdmin(){
         key: key,
     }
     useEffect(() => {
-        if(!questions){
             getAllQuestions(userLog?.accessToken,dispatch);
-        }
     })
-
     var formData = new FormData();
-    formData.append('file', image);
-    formData.append('question', newQuestion);
-    // const formData = {
-    //     file: image,
-    //     question: newQuestion
-    // }
+    formData.append('question', JSON.stringify(newQuestion));
+    formData.append('file', JSON.stringify(image));
     const handleSave = () => {
         if(answerA !== '') answers.push(answerA);
         if(answerB !== '') answers.push(answerB);
         if(answerC !== '') answers.push(answerC);
         if(answerD !== '') answers.push(answerD);
         timee = getTime();
-        console.log(image); 
-        console.log(newQuestion);
+        console.log(image);
         addQuestion(formData, dispatch);
+        setCheckedState(new Array(5).fill(false));
         key = [];
         answers = []
+        setShow(false);
     }
     return(
         <section className="admin-section">
         <div className="row">
             <div className="col">
-                <h2>Thông tin bài kiểm tra</h2>
+                {/* <h2>Thông tin bài kiểm tra</h2>
                 <form> 
                     <label htmlFor="test-name">Tên</label><br />
                     <input className="input-test-name" name='test-name' value="Kiểm tra quy chế kì 20221" type="text"></input>
@@ -116,7 +110,7 @@ function HomeAdmin(){
                 <form>
                     <label htmlFor="time">Thời gian (phút)</label><br />
                     <input className="input-time" name='time' defaultValue={time} type="text"></input>
-                </form>
+                </form> */}
                 <label>Câu hỏi</label>
                 <button className='btn-add-question' onClick={() => setShow(true)}><FaPlus/><h4>Thêm câu hỏi</h4></button>
                 {
@@ -205,7 +199,7 @@ function HomeAdmin(){
                     <br />
                     <label>Last edit</label>
                     <br />  
-                    <p id="last-edit">{getTime()}</p>
+                    <p id="last-edit">{timee}</p>
                     <a href="#"><button className='btn-save-changes' onClick={handleSave}><h4>Lưu thay đổi</h4></button></a>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 .qAnda{
     height: max-content;
     margin-top: 20px;
+    min-height: 500px;
 }
 
 .search-box input{

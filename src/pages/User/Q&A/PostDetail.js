@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { addComment, replyComment } from '../../../redux/apiRequest';
+import { useNavigate } from "react-router-dom";
+import { addComment, getPostDetail, replyComment } from '../../../redux/apiRequest';
 import './PostDetail.css'
 
 export default function PostDetail(){
@@ -10,6 +11,7 @@ export default function PostDetail(){
     const [answer, setAnswer] = useState(false);
     const [reply, setReply] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const newComment = {
         post_id: postId,
         content: comment
@@ -20,14 +22,18 @@ export default function PostDetail(){
     }
     const handleAddComment = () => {
         addComment(newComment, dispatch);
+        setAnswer(false);
+        getPostDetail(post.post_id, dispatch, navigate);
     }
 
     const handleAddSubComment = () => {
         replyComment(newSubComment, dispatch);
+        setReply(false);
+        getPostDetail(post.post_id, dispatch, navigate);
     }
     return (
         post ? (
-            <div>
+            <div className="post-detail">
                         <div className='question-content-detail'>
                             <span>
                                 <h3 className='id-his'>{post.email}</h3>

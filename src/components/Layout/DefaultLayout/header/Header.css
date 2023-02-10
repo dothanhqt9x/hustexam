@@ -44,7 +44,7 @@ body, html {
 .nav-link{
   color: #303C6C;
   font-weight: 500;
-  margin-left:40px;
+  margin-left:60px;
   transition: border-bottom 2s;
   width: 90px;
 }
@@ -65,7 +65,8 @@ body, html {
   display: inline-flex;
   /* width: 180px; */
   position: relative;
-  left: 270px;
+  left: 800px;
+  bottom: 50px;
   /* font-size: 100%; */
   /* top: 10px; */
 }
@@ -109,6 +110,11 @@ body, html {
   background-color: rgb(109, 114, 186);
   padding-bottom: 10px;
   margin-left: 30px;
-    width: 100px;
-    height: 40px;
+  width: 100px;
+  height: 40px;
+}
+.btn-header{
+  position: relative;
+  left: 550px;
+  bottom: 50px;
 }

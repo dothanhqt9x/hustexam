@@ -16,7 +16,8 @@
 }
 .main-log{
     background-color: #FAFAFA;
-    height: 500px;
+    height: max-content;
+    min-height: 500px;
 }
 .main-log .row{
     display: grid;
@@ -28,10 +29,12 @@
     border-color: #040B24;
     background-color: white;
     margin-top: 20px;
+    height: max-content;
+    min-height: 420px;
+    margin-bottom: 50px;
     /* position: relative;
     top: 50px;
     left: 200px;*/
-    height: 420px;
 }
 .column-log h2{
   color: #F4976C;
@@ -87,7 +90,7 @@
 }
 .column-log button{
     position: relative;
-    top: 40px;
+    top: 20px;
     width: 80%;
     height: 50px;
     font-weight: 500;

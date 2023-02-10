@@ -1,0 +1,47 @@
+.school{
+    min-height: 500px;
+    height: max-content;
+    max-height: 800px;
+}
+
+.school h3{
+    font-weight: 700;
+    color: #F4976C;
+    font-size: 160%;
+}
+
+.school li{
+    color: #303C6C;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.input-edit-school{
+    width: 50%;
+    height: 35px;
+    margin-right: 20px;
+}
+
+.btn-edit-school{
+    height: 40px;
+    width: 95px;
+    padding-right: 10px;
+}
+.add-school{
+    display: inline-flex;
+    width: 200%;
+    margin-bottom: 30px;
+}
+
+.input-add-school{
+    width: 258%;
+    height: 35px;
+    margin-left: 30px;
+}
+
+.btn-add-school{
+    position: relative;
+    left: 380px;
+    width: 100px;
+    height: 40px;
+}

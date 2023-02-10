@@ -1,6 +1,5 @@
 .admin-section{
     height: max-content;
-    margin-top: 20px;
 }
 .row{
     display: grid;
@@ -111,7 +110,7 @@ button h4{
 .question-list-ha{
     overflow-y: scroll;
     scroll-behavior: smooth;
-    height: 350px;
+    height: 500px;
     margin-top: 20px;
 }
 .question-ha{
@@ -136,8 +135,9 @@ button h4{
   }
   
 .question-ha .title {
-    font-size: 14px;
-    color: #999;
+    font-size: 16px;
+    color: #303C6C;
+    font-weight: 500;
   }
 .question-ha .option {
     padding: 16px 8px;

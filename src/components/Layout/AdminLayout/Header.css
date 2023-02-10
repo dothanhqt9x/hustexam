@@ -1,0 +1,14 @@
+.admin p{
+    font-size: 110%;
+    font-weight: 600;
+    color: #002ead;
+    position: relative;
+    left: 380px;
+    top: 30px;
+}
+
+.admin button{
+    position: relative;
+    left: 410px;
+    bottom: 20px;
+}

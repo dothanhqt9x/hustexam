@@ -33,7 +33,7 @@ function HomeUser() {
     <section className="user-section">
       <div className="row">
         {
-          user ? (
+          userLog ? (
         <div className="col" id="column-info-user">
           <h2>Thông tin cá nhân</h2>
           <p>Sinh viên: {user.username}</p>
