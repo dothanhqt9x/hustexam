@@ -8,7 +8,7 @@ import ChangePassword from '../../../../pages/Authentication/change_password/cha
 import UserInfo from '../../../../pages/User/user_info_detailed/UserInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutStart, logOutSuccess } from '../../../../redux/authSlice';
-import { getAllSchools, getHistory } from '../../../../redux/apiRequest';
+import { getAllDocuments, getAllSchools, getHistory } from '../../../../redux/apiRequest';
 
 function Header() {
   const userInfo = useSelector(state => state.user.user.userInfo);
@@ -40,13 +40,18 @@ function Header() {
       <header className="App-header">
       <img src={logo} alt="logo" className="logo"/>
       <a style={{textDecoration: 'none'}} href={url}><h3 className="app-name" onClick={handleClickLogo}>HustExam</h3></a>
-      {userLog ? (
             <div>
               <nav className="navbar navbar-expand-lg navbar-light navbar-custom" id="navbar">
               <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav mr-auto">
                   <li className="nav-item">
                   <a className="nav-link"  href={url} onClick={navigateHome}>Trang chủ</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link"  href='#!' onClick={() => {
+                        getAllDocuments(dispatch);
+                        navigate('/document');
+                    }}>Tài liệu</a>
                   </li>
                   <li className="nav-item">
                     <a className="nav-link"  href='#!' onClick={() => {
@@ -59,11 +64,12 @@ function Header() {
                 </ul>
               </div>
             </nav>
+        {userLog ? (
         <div className="user-info">
             <img src={avt} alt="avatar" className='avatar'/>
             <div className="dropdown">
             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
-                  style={{color :'black', backgroundColor: 'white',borderColor: 'white',marginTop: '5px'}}>{userInfo.username}</button>
+                  style={{color :'black', backgroundColor: 'white',borderColor: 'white',marginTop: '5px'}}>{userInfo?.username}</button>
             <ul className="dropdown-menu" >
               <Link to='/userinfo'>Xem thông tin cá nhân</Link>
               <br />
@@ -77,29 +83,8 @@ function Header() {
               </Routes> 
             </ul>
         </div>
-        </div>
-      </div>):
+        </div>):
       (
-        <div>
-        <nav className="navbar navbar-expand-lg navbar-light navbar-custom" id="navbar">
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-            <a className="nav-link"  href={url} onClick={() => navigate('/homeadmin')}>Câu hỏi</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link"  href={url} onClick={() => {
-                getAllSchools(dispatch, navigate);
-              }}>Trường/Viện</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link"  href='#!' onClick={() => {
-                  navigate('/dashboard');
-              }}>Dashboard</a>
-            </li> 
-          </ul>
-        </div>
-      </nav>
         <div className='btn-header'>
         <Link to='/login' className='header-login'><button>Đăng nhập</button></Link>
         <Link to='/signup' className='header-register'><button>Đăng ký</button></Link>
@@ -108,8 +93,8 @@ function Header() {
               <Route path="/signup" element={<Signup/>}/>
         </Routes> 
         </div>
-      </div>
       )}
+      </div>
       </header>
     </div>
   );

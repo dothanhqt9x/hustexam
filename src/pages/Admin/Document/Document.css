@@ -1,0 +1,23 @@
+.add-document{
+    display: flex;
+    margin-left: 30px;
+}
+
+.btn-add{
+    margin-bottom: 20px;
+}
+.add-document button{
+    width: 100px;
+}
+.input-add{
+    margin-right: 10px;
+    width: 36%;
+}
+
+.btn-edit{
+    width: 50px;
+    height: 30px;
+    margin-left: 20px;
+    padding-top: 5px !important; 
+    padding-left: 0px !important;  
+}

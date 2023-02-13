@@ -2,7 +2,7 @@ import logo from './logo.jpg'
 import {Link, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutStart, logOutSuccess } from '../../../redux/authSlice';
-import { getAllSchools } from '../../../redux/apiRequest';
+import { getAllDocuments, getAllSchools } from '../../../redux/apiRequest';
 import './Header.css'
 
 function Header() {
@@ -40,6 +40,12 @@ function Header() {
                 navigate('/school');
               }}>Trường/Viện</a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link"  href='#!' onClick={() => {
+                  getAllDocuments(dispatch);
+                  navigate('/documentAdmin');
+              }}>Tài liệu</a>
+            </li> 
             <li className="nav-item">
               <a className="nav-link"  href='#!' onClick={() => {
                   navigate('/dashboard');

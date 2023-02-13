@@ -12,7 +12,12 @@ const questionSlice = createSlice({
             isFetching: false,
             success: false,
             error: false
-        }
+        },
+        questionsAdmin: {
+            allQuestions: null,
+            isFetching: false,
+            error: false,
+        },
     },
     reducers: {
         getQuestionsStart: (state) => {
@@ -25,6 +30,17 @@ const questionSlice = createSlice({
         getQuestionsFailed: (state) => {
             state.questions.isFetching = false;
             state.questions.error = true;
+        },
+        getQuestionsAdminStart: (state) => {
+            state.questionsAdmin.isFetching = true;
+        },
+        getQuestionsAdminSuccess: (state, action) => {
+            state.questionsAdmin.isFetching = false;
+            state.questionsAdmin.allQuestions = action.payload;
+        },
+        getQuestionsAdminFailed: (state) => {
+            state.questionsAdmin.isFetching = false;
+            state.questionsAdmin.error = true;
         },
         addQuestionStart: (state) => {
             state.addQuestion.isFetching = true;
@@ -48,7 +64,10 @@ export const {
     getQuestionsFailed,
     addQuestionStart,
     addQuestionSuccess,
-    addQuestionFailed
+    addQuestionFailed,
+    getQuestionsAdminStart,
+    getQuestionsAdminSuccess,
+    getQuestionsAdminFailed
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

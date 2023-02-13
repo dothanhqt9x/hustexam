@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { loginStart, loginFailed, loginSuccess, registerStart, registerFailed, registerSuccess, 
     changePasswordStart, changePasswordSuccess, changePasswordFailed } from './authSlice';
-import { getQuestionsFailed, getQuestionsStart, getQuestionsSuccess, addQuestionStart, addQuestionSuccess, addQuestionFailed } from './questionSlice';
+import { getQuestionsFailed, getQuestionsStart, getQuestionsSuccess, addQuestionStart, addQuestionSuccess, addQuestionFailed, getQuestionsAdminStart, getQuestionsAdminSuccess, getQuestionsAdminFailed } from './questionSlice';
 import { changeUserInfoFailed, changeUserInfoStart, changeUserInfoSuccess, getUserInfoFailed, getUserInfoStart, getUserInfoSuccess } from './userSlice';
 import { submitStart, submitSuccess, submitFailed } from './submit';
 import { getHistoryStart, getHistorySuccess, getHistoryFailed } from './history';
 import { getTimesStart, getTimesSuccess, getTimesFailed } from './timesSlice';
-import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed} from './postSlice';
+import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed, searchPostsStart, searchPostFailed, searchPostSuccess} from './postSlice';
 import { addCommentStart, addCommentSuccess, addCommentFailed, replyCommentStart, replyCommentSuccess, replyCommentFailed } from './commentSlice';
 import { addSchoolFailed, addSchoolStart, addSchoolSuccess, changeSchoolNameStart, changeSchoolNameSuccess, getSchoolsFailed, getSchoolsStart, getSchoolsSuccess } from './schoolSlice';
+import { addDocumentFailed, addDocumentStart, addDocumentSuccess, editDocumentFailed, editDocumentStart, editDocumentSuccess, getDocumentsFailed, getDocumentsStart, getDocumentsSuccess } from './documentSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -130,6 +131,18 @@ export const getAllQuestions = async (accessToken, dispatch) => {
     }
 }
 
+export const getQuestionsAdmin = async (page, dispatch) => {
+    dispatch(getQuestionsAdminStart());
+    try {
+        const res = await axios.get(`/getListQuestion/${page}/5`,{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getQuestionsAdminSuccess(res.data));
+    }catch(err){
+        dispatch(getQuestionsAdminFailed());
+    }
+}
+
 export const addQuestion = async(formData, dispatch) => {
     dispatch(addQuestionStart());
     try{
@@ -152,6 +165,16 @@ export const getAllPosts = async (page, dispatch) => {
         const res = await axios.get(`/getAllPost/${page}/5`,{
             headers: { ContentType: 'application/json'},
         })
+        dispatch(getPostsSuccess(res.data));
+    }catch(err){
+        dispatch(getPostsFailed());
+    }
+}
+
+export const searchPost = async (keyword, dispatch) => {
+    dispatch(getPostsStart());
+    try {
+        const res = await axios.get(`/searchPost?key=${keyword}`)
         dispatch(getPostsSuccess(res.data));
     }catch(err){
         dispatch(getPostsFailed());
@@ -252,4 +275,43 @@ export const changeSchoolName = async(newName, dispatch) => {
     }
 }
 
+export const getAllDocuments = async (dispatch) => {
+    dispatch(getDocumentsStart());
+    try {
+        const res = await axios.get('getListDocument',{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getDocumentsSuccess(res.data));
+    }catch(err){
+        dispatch(getDocumentsFailed());
+    }
+}
+
+export const addDocument = async(newDocument, dispatch) => {
+    dispatch(addDocumentStart());
+    try{
+        const res = await axios.post('/createDocument',newDocument,{
+            headers: { ContentType: 'multipart/form-data'},
+        })
+        dispatch(addDocumentSuccess(res.data));
+        alert('Tài liệu đã được thêm thành công!')
+    }catch(err){
+        dispatch(addDocumentFailed());
+        alert('Error: ' + err.message);
+    }
+}
+
+export const editDocument = async(id, newDocument, dispatch) => {
+    dispatch(editDocumentStart());
+    try{
+        const res = await axios.post(`/editDocument/${id}`,newDocument,{
+            headers: { ContentType: 'multipart/form-data'}
+        })
+        dispatch(editDocumentSuccess(res.data));
+        alert('Thay đổi thành công!')
+    }catch(err){
+        dispatch(editDocumentFailed());
+        alert('Error: ' + err.message);
+    }
+}
 

@@ -17,7 +17,7 @@ const postSlice = createSlice({
             postInfo: null,
             isFetching: false,
             error: false
-        }
+        },
     },
     reducers: {
         getPostsStart: (state) => {
@@ -54,7 +54,7 @@ const postSlice = createSlice({
             state.addPost.isFetching = false;
             state.addPost.success = false;
             state.addPost.error = true;
-        },
+        }
     }
 })
 

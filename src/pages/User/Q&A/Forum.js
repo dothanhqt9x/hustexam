@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './Forum.css'
-import { getAllPosts } from '../../../redux/apiRequest'
+import { getAllPosts, searchPost } from '../../../redux/apiRequest'
 import { useDispatch, useSelector } from 'react-redux'
 import { Fragment } from 'react';
 import { postQuestion, getPostDetail } from '../../../redux/apiRequest';
@@ -18,6 +18,7 @@ function Forum(){
     const user = useSelector(state => state.auth.login.currentUser);
     const [show, setShow] = useState(false);
     const [post, setPost] = useState('');
+    const [keyword, setKeyWord] = useState('');
     const newPost = {
         content: post
     }
@@ -26,11 +27,15 @@ function Forum(){
         setShow(false);
         getAllPosts(page, dispatch);
     }
+    const handleSearch = () => {
+        searchPost(keyword, dispatch);
+        setKeyWord('');
+    }
     return(
         <div className='qAnda'>
             <div className='search-box'>
-                <input type="text" placeholder='Nhập để tìm kiếm'/>
-                <button className='btn-search'>Tìm kiếm</button>
+                <input type="text" placeholder='Nhập để tìm kiếm' onChange={(e) => setKeyWord(e.target.value)}/>
+                <button className='btn-search' onClick={handleSearch}>Tìm kiếm</button>
                 <button className='btn-add' onClick={() => setShow(!show)}>Tạo câu hỏi</button>
                 {
                     show ? (
@@ -45,16 +50,16 @@ function Forum(){
             <div className='questions-box'>
             { 
                 listPosts ? (
-            listPosts.map((question, index) => {
+            listPosts?.map((question, index) => {
                 return(
                     <div key={index} className = 'question'>
                         <div className='question-content'>
-                            <h3 className='id-his'>{question.userId}</h3>
-                            <p>Câu hỏi: <h4>{question.content}</h4></p>
+                            <h3 className='id-his'>{question?.username}</h3>
+                            <p>Câu hỏi: <h4>{question?.content}</h4></p>
                         </div>
-                        <i className='num-of-comments'>{question.time}</i>
+                        <i className='num-of-comments'>{question?.time}</i>
                         <a href="#!" className='see-detail' onClick={() => {
-                            getPostDetail(5 * page + index + 1, dispatch, navigate);
+                            getPostDetail(question?.id, dispatch, navigate);
                         }}>Xem chi tiết</a>
                     </div>
                 )

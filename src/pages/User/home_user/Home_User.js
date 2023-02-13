@@ -36,8 +36,8 @@ function HomeUser() {
           userLog ? (
         <div className="col" id="column-info-user">
           <h2>Thông tin cá nhân</h2>
-          <p>Sinh viên: {user.username}</p>
-          <p>Mã số sinh viên: {user.mssv}</p>
+          <p>Sinh viên: {user?.username}</p>
+          <p>Mã số sinh viên: {user?.mssv}</p>
           {/* <p>{user.faculty}</p> */}
           <p>Kỳ 20221</p>
         </div>

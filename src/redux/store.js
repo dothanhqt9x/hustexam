@@ -10,6 +10,7 @@ import timesReducers from './timesSlice';
 import postReducers from './postSlice';
 import commentReducers from './commentSlice';
 import schoolReducers from './schoolSlice';
+import documentReducers from './documentSlice';
 import {
     persistStore,
     persistReducer,
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
     post: postReducers,
     comment: commentReducers,
     school: schoolReducers,
+    document: documentReducers
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

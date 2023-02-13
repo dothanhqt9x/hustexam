@@ -14,7 +14,7 @@ label{
     color: #303C6C;
     font-weight: 700;
     font-size: 120%;
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 .input-test-name, .input-time{
     background-color: rgb(248, 248, 248);
@@ -107,12 +107,7 @@ button h4{
     border-left: 0px;
     background-color: rgb(248, 248, 248);
 }
-.question-list-ha{
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    height: 500px;
-    margin-top: 20px;
-}
+
 .question-ha{
     display: flex;
     align-items: center;

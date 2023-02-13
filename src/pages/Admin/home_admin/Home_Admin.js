@@ -6,7 +6,7 @@ import {FaPlus} from 'react-icons/fa'
 import {FaEye} from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllQuestions, getAllSchools } from '../../../redux/apiRequest';
+import { getAllQuestions, getAllSchools, getQuestionsAdmin } from '../../../redux/apiRequest';
 import { Fragment } from 'react';
 import { addQuestion } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
@@ -51,8 +51,9 @@ function getTime(){
 var key = [];
 var answers = [];
 var timee = '';
+var page = 0;
 function HomeAdmin(){
-    const questions = useSelector(state => state.questions.questions.allQuestions);
+    const questions = useSelector(state => state.questions.questionsAdmin?.allQuestions);
     const userLog = useSelector(state => state.auth.login.currentUser);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
@@ -80,8 +81,8 @@ function HomeAdmin(){
         key: key,
     }
     useEffect(() => {
-            getAllQuestions(userLog?.accessToken,dispatch);
-    })
+            getQuestionsAdmin(0,dispatch);
+    },[])
     var formData = new FormData();
     formData.append('question', JSON.stringify(newQuestion));
     formData.append('file', JSON.stringify(image));
@@ -112,7 +113,7 @@ function HomeAdmin(){
                     <input className="input-time" name='time' defaultValue={time} type="text"></input>
                 </form> */}
                 <label>Câu hỏi</label>
-                <button className='btn-add-question' onClick={() => setShow(true)}><FaPlus/><h4>Thêm câu hỏi</h4></button>
+                <button className='btn-add-question' onClick={() => setShow(!show)}><FaPlus/><h4>Thêm câu hỏi</h4></button>
                 {
                     show ? (
                 <form className='form-add-question'>
@@ -171,7 +172,7 @@ function HomeAdmin(){
                       questions ? (
                         questions.map((question, index) => (
                             <QuestionItem
-                                index={index + 1}
+                                index={question.questionNumber}
                                 question={question.question}
                                 answers = {question.answer}
                                 correctAnswers = {question.key}
@@ -204,6 +205,41 @@ function HomeAdmin(){
                 </div>
             </div>
         </div>
+        <nav aria-label="...">
+                <ul className="pagination" style={{marginLeft: '270px'}}>
+                    <li className="page-item">
+                    <a className="page-link" href="#!" onClick={() => {
+                            if(page === 0) return;
+                            page--;
+                            getQuestionsAdmin(page, dispatch);
+                        }}>Previous</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 0;
+                            getQuestionsAdmin(0, dispatch);
+                        }}>1</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 1;
+                            getQuestionsAdmin(1, dispatch);
+                        }}>2</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page = 2;
+                            getQuestionsAdmin(2, dispatch);
+                        }}>3</a>
+                    </li>
+                    <li className="page-item">
+                        <a className="page-link" href="#!" onClick={() => {
+                            page++;
+                            getQuestionsAdmin(page, dispatch);
+                        }}>Next</a>
+                    </li>
+                </ul>
+            </nav>
     </section>
     )
 }
