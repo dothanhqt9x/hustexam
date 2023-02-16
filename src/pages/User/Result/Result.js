@@ -20,6 +20,8 @@ function Result(){
           <h2>User information</h2>
           <p>Sinh viên: {user?.username}</p>
           <p>Mã số sinh viên: {user?.mssv}</p>
+          <p>{user?.school}</p>
+          <p>Kỳ 20221</p>
         </div>
 
         <div className="col" id='column-result'>
@@ -27,9 +29,10 @@ function Result(){
             <div className="result">
                 <p>Thời gian làm bài: {Math.floor(time / 60)}:{time - 60 * Math.floor(time / 60)} s</p>
                 <p>Tổng số câu trả lời đúng: {point}/20</p>
-                <p>Điểm: {point}</p>
+                <p>Điểm: {point / 20 * 10}</p>
             </div>
-                <button className="btn-retakeTest" onClick={handleSeeResult}>Xem chi tiết kết quả</button>
+                {/* <button className="btn-retakeTest" onClick={handleSeeResult}>Xem chi tiết kết quả</button> */}
+                <a href="/" style={{marginLeft: '290px'}}>Trở về trang chủ</a>
         </div>
       </div>
     )

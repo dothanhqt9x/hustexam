@@ -17,6 +17,7 @@ var chosen = [];
 var answersList = [];
 function TakeExam(){
     var questionAnswered = {
+        questionNumber: 0,
         questions: {},
         answersChoose: [],
         flag: 0
@@ -67,6 +68,7 @@ function TakeExam(){
             questionAnswered.answersChoose.sort(function(a, b){return a - b});
             chosen = []
         }
+        questionAnswered.questionNumber = question.questionNumber;
         questionsAnsweredList.push(questionAnswered);
         if (currentIndex === questionsList.length - 1) {
             return;
@@ -81,6 +83,7 @@ function TakeExam(){
     const handleSubmit = () => {
         if(currentIndex === questionsList.length - 1){
             questionAnswered.questions = question;
+            questionAnswered.questionNumber = question.questionNumber;
             if(question.key.length === 1){
             questionAnswered.answersChoose.push(selected);
         }
@@ -103,13 +106,14 @@ function TakeExam(){
                 chooses: [],
                 flag: 0
             };
-            answer.questionNumber = i + 1;
+            answer.questionNumber = questionsAnsweredList[i].questionNumber;
             answer.chooses = questionsAnsweredList[i].answersChoose;
             answer.flag = questionsAnsweredList[i].flag;
             answersList.push(answer);
         }
         time = 3600 - countdown;
         currentIndex = 0;
+        console.log(answersList);
         submit(answersList, dispatch, navigate);
     }
     return(

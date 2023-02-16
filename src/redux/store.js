@@ -11,6 +11,9 @@ import postReducers from './postSlice';
 import commentReducers from './commentSlice';
 import schoolReducers from './schoolSlice';
 import documentReducers from './documentSlice';
+import avatarReducers from './avatarSlice';
+import dashboardReducers from './dashboardSlice';
+
 import {
     persistStore,
     persistReducer,
@@ -38,8 +41,11 @@ const rootReducer = combineReducers({
     post: postReducers,
     comment: commentReducers,
     school: schoolReducers,
-    document: documentReducers
+    document: documentReducers,
+    avatar: avatarReducers,
+    dashboard: dashboardReducers,
 })
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

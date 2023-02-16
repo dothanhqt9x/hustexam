@@ -10,6 +10,8 @@ import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSu
 import { addCommentStart, addCommentSuccess, addCommentFailed, replyCommentStart, replyCommentSuccess, replyCommentFailed } from './commentSlice';
 import { addSchoolFailed, addSchoolStart, addSchoolSuccess, changeSchoolNameStart, changeSchoolNameSuccess, getSchoolsFailed, getSchoolsStart, getSchoolsSuccess } from './schoolSlice';
 import { addDocumentFailed, addDocumentStart, addDocumentSuccess, editDocumentFailed, editDocumentStart, editDocumentSuccess, getDocumentsFailed, getDocumentsStart, getDocumentsSuccess } from './documentSlice';
+import { uploadAvatarFailed, uploadAvatarStart, uploadAvatarSuccess } from './avatarSlice';
+import { getDashboardFailed, getDashboardStart, getDashboardSuccess } from './dashboardSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -70,6 +72,7 @@ export const changeUserInfo = async(accessToken, newInfo, dispatch, navigate) =>
     }
 }
 
+
 export const getHistory = async (dispatch, navigate) => {
     dispatch(getHistoryStart());
     try {
@@ -78,6 +81,7 @@ export const getHistory = async (dispatch, navigate) => {
         navigate('/historylist');
     }catch(err){
         dispatch(getHistoryFailed());
+        alert(err.message);
     }
 }
 
@@ -102,6 +106,21 @@ export const getUserInfo = async (accessToken, dispatch) => {
         dispatch(getUserInfoSuccess(res.data));
     }catch(err){
         dispatch(getUserInfoFailed());
+        alert(err.message);
+    }
+}
+
+export const uploadAvatar = async(formData, dispatch) => {
+    dispatch(uploadAvatarStart());
+    try{
+        const res = await axios.post('/uploadAvatar',formData,{
+            headers: { ContentType: 'multipart/form-data' },
+        })
+        dispatch(uploadAvatarSuccess(res.data));
+        alert('Thêm ảnh thành công!')
+    }catch(err){
+        dispatch(uploadAvatarFailed());
+        alert(err.message);
     }
 }
 
@@ -115,19 +134,21 @@ export const submit = async(answers, dispatch, navigate) => {
         navigate('/result')
     }catch(err){
         dispatch(submitFailed());
+        alert(err.message);
     }
 }
 
 export const getAllQuestions = async (accessToken, dispatch) => {
     dispatch(getQuestionsStart());
     try {
-        const res = await axios.get('/question/all',{
+        const res = await axios.get('/question/all?size=20',{
             headers: { ContentType: 'application/json'},
             token: `Bearer ${accessToken}`
         })
         dispatch(getQuestionsSuccess(res.data));
     }catch(err){
         dispatch(getQuestionsFailed());
+        alert(err.message);
     }
 }
 
@@ -140,6 +161,7 @@ export const getQuestionsAdmin = async (page, dispatch) => {
         dispatch(getQuestionsAdminSuccess(res.data));
     }catch(err){
         dispatch(getQuestionsAdminFailed());
+        alert(err.message);
     }
 }
 
@@ -168,6 +190,7 @@ export const getAllPosts = async (page, dispatch) => {
         dispatch(getPostsSuccess(res.data));
     }catch(err){
         dispatch(getPostsFailed());
+        alert(err.message);
     }
 }
 
@@ -178,6 +201,7 @@ export const searchPost = async (keyword, dispatch) => {
         dispatch(getPostsSuccess(res.data));
     }catch(err){
         dispatch(getPostsFailed());
+        alert(err.message);
     }
 }
 
@@ -189,6 +213,7 @@ export const getPostDetail = async (id, dispatch, navigate) => {
         navigate('/postdetail')
     }catch(err){
         dispatch(getPostDetailFailed());
+        alert(err.message);
     }
 }
 
@@ -244,6 +269,7 @@ export const getAllSchools = async (dispatch) => {
         dispatch(getSchoolsSuccess(res.data));
     }catch(err){
         dispatch(getSchoolsFailed());
+        alert(err.message);
     }
 }
 
@@ -284,6 +310,7 @@ export const getAllDocuments = async (dispatch) => {
         dispatch(getDocumentsSuccess(res.data));
     }catch(err){
         dispatch(getDocumentsFailed());
+        alert(err.message);
     }
 }
 
@@ -312,6 +339,19 @@ export const editDocument = async(id, newDocument, dispatch) => {
     }catch(err){
         dispatch(editDocumentFailed());
         alert('Error: ' + err.message);
+    }
+}
+
+export const getDashboard = async (dispatch) => {
+    dispatch(getDashboardStart());
+    try {
+        const res = await axios.get('getDashboard',{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getDashboardSuccess(res.data));
+    }catch(err){
+        dispatch(getDashboardFailed());
+        alert(err.message);
     }
 }
 

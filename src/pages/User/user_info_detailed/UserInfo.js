@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeUserInfo } from "../../../redux/apiRequest";
+import { changeUserInfo, uploadAvatar } from "../../../redux/apiRequest";
 import './UserInfo.css' 
+import avt from './avt.jpg'
+
 function UserInfo(){
     const userLog = useSelector((state) => state.auth.login?.currentUser)
     const user = useSelector(state => state.user.user.userInfo);
-    const [username, setUsername] = useState('');
-    const [mssv, setMssv] = useState('');
-    const [school, setSchool] = useState('');
     const [dob, setDob] = useState('');
+    const [show, setShow] = useState(false);
     const [address, setAddress] = useState('');
+    const [avatar, setAvatar] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const newInfo = {
-      name: username,
+      address: address,
+      name: user.username
+    }
+    const formData = new FormData();
+    formData.append('file', avatar);
+    const handleUploadAvatar = ()=>{
+        uploadAvatar(formData, dispatch);
+        setShow(false);
+        setAvatar();
     }
     const handleSave = (e) => {
       console.log(newInfo);
@@ -25,20 +34,31 @@ function UserInfo(){
     return(
         <div className="col" id="column-info-user" style={{height: 'max-content', margin: '20px 0px 30px 220px',
             padding: '10px 0px 20px 30px', width: '60%'}}>
+          <div className="avatar-div">
+            <img src={avt} alt="avatar" className="avatar-user"/>
+            <p onClick={() => setShow(!show)}>Thay đổi ảnh đại diện</p>
+          </div>
+          {
+              show ? (
+                <div className="upload-avatar">
+                  <input type="file"
+                    onChange={(e) => setAvatar(e.target.files[0])}/>
+                    <button onClick={handleUploadAvatar}><h4>Lưu</h4></button>
+                </div>
+              ) : Fragment
+            }
           <h2>Thông tin cá nhân</h2>
           <div>
             <label htmlFor="username">Họ và tên:</label>
-            <input type="text" id="username" name="username" defaultValue={user.username} 
-              onChange = { (e) =>setUsername(e.target.value)}/>
+            <input type="text" id="username" name="username" value={user.username} disabled/>
           </div>
           <div>
             <label htmlFor="mssv">Mã số sinh viên: </label>
-            <input type="text" id="mssv" name="mssv" defaultValue={user.mssv}
-              onChange = { (e) =>setMssv(e.target.value)}/>
+            <input type="text" id="mssv" name="mssv" value={user.mssv} disabled/>
           </div>
           <div>
             <label htmlFor="school">Trường/Viện: </label>
-            <input type="text" id="school" name="school" onChange = { (e) =>setSchool(e.target.value)}/>
+            <input type="text" id="school" name="school" value={user.school} disabled/>
           </div>
           <div>
             <label htmlFor="dob">Ngày sinh: </label>

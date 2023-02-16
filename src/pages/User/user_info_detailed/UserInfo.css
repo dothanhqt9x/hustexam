@@ -1,7 +1,7 @@
 #column-info-user input{
     width: 50%;
     margin-left: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 400px;
     height: 35px;
     font-size: 90%;
@@ -18,9 +18,44 @@
     border: inherit;
 }
 
+#column-info-user h2{
+    margin-bottom: 20px;
+}
 .btn-save{
     padding-bottom: 10px;
     position:relative;
     left: 480px;
     margin-top: 30px;
+    cursor: pointer;
+}
+
+.avatar-div{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.avatar-div p{
+    color: #002ead;
+    cursor: pointer;
+    align-self: center;
+    margin-left: 10px;
+}
+.avatar-user{
+    border-radius: 50px;
+    height: 120px;
+    width: 120px;
+}
+
+.upload-avatar{
+    margin-left: 70px;
+}
+
+.upload-avatar button{
+    padding-left: 0px !important;
+    width: 50px;
+    position: relative;
+    right: 80px;
+    top: 5px;
+    cursor: pointer;
 }

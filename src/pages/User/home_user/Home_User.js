@@ -38,7 +38,7 @@ function HomeUser() {
           <h2>Thông tin cá nhân</h2>
           <p>Sinh viên: {user?.username}</p>
           <p>Mã số sinh viên: {user?.mssv}</p>
-          {/* <p>{user.faculty}</p> */}
+          <p>{user?.school}</p>
           <p>Kỳ 20221</p>
         </div>
           ) : (

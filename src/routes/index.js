@@ -13,6 +13,7 @@ import PostDetail from '../pages/User/Q&A/PostDetail';
 import School from '../pages/Admin/School/School';
 import Document from '../pages/Admin/Document/Document';
 import DocumentUser from '../pages/User/document/DocumentUser';
+import Dashboard from '../pages/Admin/Dashboard/Dashboard';
 const publicRoutes = [
     { path: '/', component: HomeUser},
     { path: '/homeadmin', component: HomeAdmin, layout: 'admin'},
@@ -28,7 +29,8 @@ const publicRoutes = [
     { path: '/postdetail', component: PostDetail},
     { path: '/document', component: DocumentUser},
     { path: '/school', component: School, layout: 'admin'},
-    { path: '/documentAdmin', component: Document, layout: 'admin'}
+    { path: '/documentAdmin', component: Document, layout: 'admin'},
+    { path: '/dashboard', component: Dashboard, layout: 'admin'}
 ]
 
 const privateRoutes = []

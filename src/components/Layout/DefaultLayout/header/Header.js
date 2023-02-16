@@ -66,7 +66,7 @@ function Header() {
             </nav>
         {userLog ? (
         <div className="user-info">
-            <img src={avt} alt="avatar" className='avatar'/>
+            <a href="/userInfo"><img src={avt} alt="avatar" className='avatar'/></a>
             <div className="dropdown">
             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
                   style={{color :'black', backgroundColor: 'white',borderColor: 'white',marginTop: '5px'}}>{userInfo?.username}</button>
