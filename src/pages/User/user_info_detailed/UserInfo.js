@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { changeUserInfo, uploadAvatar } from "../../../redux/apiRequest";
+import { changeUserInfo, getUserInfo, uploadAvatar } from "../../../redux/apiRequest";
 import './UserInfo.css' 
 import avt from './avt.jpg'
 
@@ -24,6 +24,7 @@ function UserInfo(){
         uploadAvatar(formData, dispatch);
         setShow(false);
         setAvatar();
+        getUserInfo(userLog.accessToken, dispatch, navigate);
     }
     const handleSave = (e) => {
       console.log(newInfo);
@@ -35,7 +36,7 @@ function UserInfo(){
         <div className="col" id="column-info-user" style={{height: 'max-content', margin: '20px 0px 30px 220px',
             padding: '10px 0px 20px 30px', width: '60%'}}>
           <div className="avatar-div">
-            <img src={avt} alt="avatar" className="avatar-user"/>
+            <img src={user.avatar ? user.avatar : avt} alt="avatar" className="avatar-user"/>
             <p onClick={() => setShow(!show)}>Thay đổi ảnh đại diện</p>
           </div>
           {

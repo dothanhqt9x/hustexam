@@ -8,7 +8,7 @@ import ChangePassword from '../../../../pages/Authentication/change_password/cha
 import UserInfo from '../../../../pages/User/user_info_detailed/UserInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutStart, logOutSuccess } from '../../../../redux/authSlice';
-import { getAllDocuments, getAllSchools, getHistory } from '../../../../redux/apiRequest';
+import { getAllDocuments, getHistory } from '../../../../redux/apiRequest';
 
 function Header() {
   const userInfo = useSelector(state => state.user.user.userInfo);
@@ -31,7 +31,7 @@ function Header() {
   }
 
   const handleWatchHistory = (e) => {
-      getHistory(dispatch);
+      getHistory(dispatch,  navigate);
       navigate('/historylist')
 
   }
@@ -49,7 +49,7 @@ function Header() {
                   </li>
                   <li className="nav-item">
                     <a className="nav-link"  href='#!' onClick={() => {
-                        getAllDocuments(dispatch);
+                        getAllDocuments(dispatch, navigate);
                         navigate('/document');
                     }}>Tài liệu</a>
                   </li>
@@ -66,7 +66,7 @@ function Header() {
             </nav>
         {userLog ? (
         <div className="user-info">
-            <a href="/userInfo"><img src={avt} alt="avatar" className='avatar'/></a>
+            <a href="/userInfo"><img src={userInfo?.avatar ? userInfo.avatar : avt} alt="avatar" className='avatar'/></a>
             <div className="dropdown">
             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" 
                   style={{color :'black', backgroundColor: 'white',borderColor: 'white',marginTop: '5px'}}>{userInfo?.username}</button>

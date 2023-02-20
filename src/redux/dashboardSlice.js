@@ -8,6 +8,11 @@ const dashboardSlice = createSlice({
             isFetching: false,
             error: false
         },
+        statistic:{
+            list: null,
+            isFetching: false,
+            error: false
+        }
     },
     reducers: {
         getDashboardStart: (state) => {
@@ -20,6 +25,17 @@ const dashboardSlice = createSlice({
         getDashboardFailed: (state) => {
             state.dashboard.isFetching = false;
             state.dashboard.error = true;
+        },
+        getStatisticStart: (state) => {
+            state.statistic.isFetching = true;
+        },
+        getStatisticSuccess: (state, action) => {
+            state.statistic.isFetching = false;
+            state.statistic.list = action.payload;
+        },
+        getStatisticFailed: (state) => {
+            state.statistic.isFetching = false;
+            state.statistic.error = true;
         }
     }
 })
@@ -27,7 +43,10 @@ const dashboardSlice = createSlice({
 export const {
     getDashboardStart,
     getDashboardSuccess,
-    getDashboardFailed
+    getDashboardFailed,
+    getStatisticStart, 
+    getStatisticSuccess,
+    getStatisticFailed, 
 } = dashboardSlice.actions;
 
 export default dashboardSlice.reducer;

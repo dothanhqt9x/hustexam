@@ -1,0 +1,60 @@
+.statistic{
+    margin-top: -30px;
+    min-height: 700px;
+    max-height: max-content;
+}
+
+.statistic h2{
+    font-size: 150%;
+    color: #F4976C;
+}
+
+.head-statistic{
+    display: flex;
+    margin-top: 20px;
+}
+
+.search{
+    margin-top: -5px;
+}
+.search input{
+    width: 300px;
+    margin-right: 20px;
+    font-size: 90%;
+    height: 30px;
+}
+
+.search button{
+    padding-bottom: 15px;
+    height: 40px;
+    margin-right: 50px;
+}
+
+.filter{
+    display: flex;
+}
+
+.filter p{
+    font-weight: 500;
+}
+
+.filter input{
+    width: 50px;
+    margin-left: 10px;
+}
+
+.btn-filter{
+    padding-bottom: 15px;
+    height: 40px;
+    width: 60px;
+    margin-left: 20px;
+    margin-top: -5px;
+}
+
+.statistic .table{
+    margin-top: 10px;
+}
+
+.statistic tr{
+    cursor: pointer;
+}

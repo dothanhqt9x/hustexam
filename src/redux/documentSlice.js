@@ -17,7 +17,12 @@ const documentSlice = createSlice({
             newDocument: null,
             isFetching: false,
             error: false
-        }
+        },
+        deleteDocument: {
+            success: false,
+            isFetching: false,
+            error: false
+        },
     },
     reducers: {
         getDocumentsStart: (state) => {
@@ -56,6 +61,19 @@ const documentSlice = createSlice({
             state.editDocument.isFetching = false;
             state.editDocument.error = true;
         },
+        deleteDocumentStart: (state) => {
+            state.deleteDocument.isFetching = true;
+        },
+        deleteDocumentSuccess: (state) => {
+            state.deleteDocument.isFetching = false;
+            state.deleteDocument.error = false;
+            state.deleteDocument.success = true;
+        },
+        deleteDocumentFailed: (state) => {
+            state.deleteDocument.isFetching = false;
+            state.deleteDocument.success = false;
+            state.deleteDocument.error = true;
+        },
     }
 })
 
@@ -69,6 +87,9 @@ export const {
     editDocumentStart,
     editDocumentSuccess,
     editDocumentFailed,
+    deleteDocumentStart,
+    deleteDocumentSuccess,
+    deleteDocumentFailed
 } = documentSlice.actions;
 
 export default documentSlice.reducer;

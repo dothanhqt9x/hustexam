@@ -6,7 +6,7 @@ import {FaPlus} from 'react-icons/fa'
 import {FaEye} from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getAllQuestions, getAllSchools, getQuestionsAdmin } from '../../../redux/apiRequest';
+import { getQuestionsAdmin, getStatisticByFilter } from '../../../redux/apiRequest';
 import { Fragment } from 'react';
 import { addQuestion } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
@@ -54,7 +54,7 @@ var timee = '';
 var page = 0;
 function HomeAdmin(){
     const questions = useSelector(state => state.questions.questionsAdmin?.allQuestions);
-    const userLog = useSelector(state => state.auth.login.currentUser);
+    const listResponses = useSelector(state => state.dashboard.statistic?.list);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const [image, setImage] = useState();
@@ -81,7 +81,8 @@ function HomeAdmin(){
         key: key,
     }
     useEffect(() => {
-            getQuestionsAdmin(0,dispatch);
+            getQuestionsAdmin(0,dispatch, navigate);
+            getStatisticByFilter(0,20,dispatch, navigate);
     },[])
     var formData = new FormData();
     formData.append('question', JSON.stringify(newQuestion));
@@ -103,15 +104,6 @@ function HomeAdmin(){
         <section className="admin-section">
         <div className="row">
             <div className="col">
-                {/* <h2>Thông tin bài kiểm tra</h2>
-                <form> 
-                    <label htmlFor="test-name">Tên</label><br />
-                    <input className="input-test-name" name='test-name' value="Kiểm tra quy chế kì 20221" type="text"></input>
-                </form>
-                <form>
-                    <label htmlFor="time">Thời gian (phút)</label><br />
-                    <input className="input-time" name='time' defaultValue={time} type="text"></input>
-                </form> */}
                 <label>Câu hỏi</label>
                 <button className='btn-add-question' onClick={() => setShow(!show)}><FaPlus/><h4>Thêm câu hỏi</h4></button>
                 {
@@ -186,17 +178,16 @@ function HomeAdmin(){
                 <div className='questions-summary'>
                     <label>Questions</label>
                     <div>
-                    <h4 className='num-of-questions' >{questions?.length}</h4>
+                    <h4 className='num-of-questions' >200</h4>
                     <p> Elements</p>
                     </div>
-                    <a href="#"><FaPlus style={{marginRight: '5px',position: 'relative',top:'2px'}}/>Add question</a>
                 </div>
 
                 <div className='responses-summary'>
                     <label>Responses</label>
-                    <h4 className='num-of-responses' >73</h4>
-                    <p> Students</p>
-                    <a href="#"><FaEye style={{marginRight: '5px',position: 'relative',top:'2px'}}/>View results</a>
+                    <h4 className='num-of-responses' >{listResponses?.length}</h4>
+                    <p> Times</p>
+                    <a href='#' onClick={() => navigate('/statistic')}><FaEye style={{marginRight: '5px',position: 'relative',top:'2px'}}/>View results</a>
                     <br />
                     <label>Last edit</label>
                     <br />  
@@ -211,31 +202,31 @@ function HomeAdmin(){
                     <a className="page-link" href="#!" onClick={() => {
                             if(page === 0) return;
                             page--;
-                            getQuestionsAdmin(page, dispatch);
+                            getQuestionsAdmin(page, dispatch, navigate);
                         }}>Previous</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 0;
-                            getQuestionsAdmin(0, dispatch);
+                            getQuestionsAdmin(0, dispatch, navigate);
                         }}>1</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 1;
-                            getQuestionsAdmin(1, dispatch);
+                            getQuestionsAdmin(1, dispatch, navigate);
                         }}>2</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 2;
-                            getQuestionsAdmin(2, dispatch);
+                            getQuestionsAdmin(2, dispatch, navigate);
                         }}>3</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page++;
-                            getQuestionsAdmin(page, dispatch);
+                            getQuestionsAdmin(page, dispatch, navigate);
                         }}>Next</a>
                     </li>
                 </ul>

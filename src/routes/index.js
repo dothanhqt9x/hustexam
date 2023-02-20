@@ -14,11 +14,12 @@ import School from '../pages/Admin/School/School';
 import Document from '../pages/Admin/Document/Document';
 import DocumentUser from '../pages/User/document/DocumentUser';
 import Dashboard from '../pages/Admin/Dashboard/Dashboard';
+import Statistic from '../pages/Admin/Statistic/Statistic';
+
 const publicRoutes = [
-    { path: '/', component: HomeUser},
-    { path: '/homeadmin', component: HomeAdmin, layout: 'admin'},
     { path: '/login', component: Login, layout: null},
     { path: '/signup', component: Signup, layout: null},
+    { path: '/', component: HomeUser},
     { path: '/changepw', component: ChangePassword},
     { path: '/takeexam', component: TakeExam},
     { path: '/result', component: Result},
@@ -28,9 +29,12 @@ const publicRoutes = [
     { path: '/forum', component: Forum},
     { path: '/postdetail', component: PostDetail},
     { path: '/document', component: DocumentUser},
+    { path: '/homeadmin', component: HomeAdmin, layout: 'admin'},
     { path: '/school', component: School, layout: 'admin'},
     { path: '/documentAdmin', component: Document, layout: 'admin'},
-    { path: '/dashboard', component: Dashboard, layout: 'admin'}
+    { path: '/dashboard', component: Dashboard, layout: 'admin'},
+    { path: '/statistic', component: Statistic, layout: 'admin'},
+    { path: '/historydetailAdmin', component: HistoryDetail, layout: 'admin'},
 ]
 
 const privateRoutes = []

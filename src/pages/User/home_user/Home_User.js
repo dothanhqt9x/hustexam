@@ -13,7 +13,7 @@ function HomeUser() {
         if(userLog){
           if(!questionsList)
           getAllQuestions(userLog?.accessToken, dispatch)
-          getUserInfo(userLog?.accessToken, dispatch)
+          getUserInfo(userLog?.accessToken, dispatch, navigate)
         }
      },[])
     const navigate = useNavigate();
@@ -23,10 +23,8 @@ function HomeUser() {
            navigate('/login');
         }
         else { 
+          questionsAnsweredList.length = 0;
             navigate('/takeexam');
-            questionsAnsweredList = [];
-            time = 0;
-            point = 0;
       }
     }
   return (

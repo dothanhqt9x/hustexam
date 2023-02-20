@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Fragment, useState } from "react";
 import {FaPlus} from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
-import { addDocument, editDocument, getAllDocuments } from "../../../redux/apiRequest";
+import { addDocument, deleteDocument, editDocument, getAllDocuments } from "../../../redux/apiRequest";
 import './Document.css'
 function Document(){
     const allDocuments = useSelector(state => state.document.documents.allDocuments);
@@ -27,7 +27,7 @@ function Document(){
         console.log(name);
         console.log(document);
         addDocument(formData, dispatch);
-        getAllDocuments(dispatch);
+        getAllDocuments(dispatch, navigate);
         setShowAdd(false);
     }
     const handleEdit = () => {
@@ -36,6 +36,11 @@ function Document(){
         editDocument(id, formData, dispatch);
         getAllDocuments(dispatch, navigate);
         setShow(false);
+    }
+    const handleDelete = () => {
+        console.log(id);
+        deleteDocument(id, dispatch);
+        getAllDocuments(dispatch, navigate);
     }
     return(
         <div className="school">
@@ -58,6 +63,10 @@ function Document(){
                                             setShow(!show)
                                             setId(document.id)
                                             }}><h4>Sửa</h4></button>
+                                        <button className='btn-delete' onClick={() => {
+                                            setId(document.id);
+                                            handleDelete();
+                                            }}><h4>Xóa</h4></button>
                                     </div>
                                     { (show && document.id === id) ? (
                                         <div>

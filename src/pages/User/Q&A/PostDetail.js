@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 import { addComment, getPostDetail, replyComment } from '../../../redux/apiRequest';
 import './PostDetail.css'
+import avt from './avt.jpg'
 
 export default function PostDetail(){
     const post = useSelector(state => state.post.postDetail.postInfo);
@@ -33,9 +34,10 @@ export default function PostDetail(){
     }
     return (
         post ? (
-            <div className="post-detail">
+            <div className="post-detail">   
                         <div className='question-content-detail'>
                             <span>
+                                <img src={post?.avatar ? post?.avatar : avt} alt="avatar" />
                                 <h3 className='id-his'>{post.email}</h3>
                                 <i className='time-post'>đã đăng vào {post.time}</i>
                             </span>
@@ -55,7 +57,7 @@ export default function PostDetail(){
                         <ul className='list-comment'>
                             {post.comment?.map((comment, index) => {
                                 return(
-                                    <div>
+                                    <div key={index}>
                                         <dl className='comment-his' key={index}>
                                             <div className='comment'>
                                                 <span>

@@ -9,9 +9,9 @@ import { getTimesStart, getTimesSuccess, getTimesFailed } from './timesSlice';
 import { getPostsStart, getPostsSuccess, getPostsFailed, addPostStart, addPostSuccess, addPostFailed, getPostDetailStart, getPostDetailSuccess, getPostDetailFailed, searchPostsStart, searchPostFailed, searchPostSuccess} from './postSlice';
 import { addCommentStart, addCommentSuccess, addCommentFailed, replyCommentStart, replyCommentSuccess, replyCommentFailed } from './commentSlice';
 import { addSchoolFailed, addSchoolStart, addSchoolSuccess, changeSchoolNameStart, changeSchoolNameSuccess, getSchoolsFailed, getSchoolsStart, getSchoolsSuccess } from './schoolSlice';
-import { addDocumentFailed, addDocumentStart, addDocumentSuccess, editDocumentFailed, editDocumentStart, editDocumentSuccess, getDocumentsFailed, getDocumentsStart, getDocumentsSuccess } from './documentSlice';
+import { addDocumentFailed, addDocumentStart, addDocumentSuccess, deleteDocumentFailed, deleteDocumentStart, deleteDocumentSuccess, editDocumentFailed, editDocumentStart, editDocumentSuccess, getDocumentsFailed, getDocumentsStart, getDocumentsSuccess } from './documentSlice';
 import { uploadAvatarFailed, uploadAvatarStart, uploadAvatarSuccess } from './avatarSlice';
-import { getDashboardFailed, getDashboardStart, getDashboardSuccess } from './dashboardSlice';
+import { getDashboardFailed, getDashboardStart, getDashboardSuccess, getStatisticFailed, getStatisticStart, getStatisticSuccess } from './dashboardSlice';
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -38,6 +38,7 @@ export const registerUser = async(user, dispatch, navigate) => {
     catch(err){
         dispatch(registerFailed());
         alert('Error: ' + err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -53,6 +54,7 @@ export const changePasswordUser = async(password, dispatch, navigate) => {
     }catch(err){
         dispatch(changePasswordFailed());
         alert('Error: Mật khẩu của bạn chưa được thay đổi!');
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -82,22 +84,23 @@ export const getHistory = async (dispatch, navigate) => {
     }catch(err){
         dispatch(getHistoryFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
-export const getHistoryDetail = async (id, dispatch, navigate) => {
+export const getHistoryDetail = async (id, dispatch, navigate, url) => {
     dispatch(getTimesStart());
     try {
         const res = await axios.get(`get_history_details?id=${id}`);
         dispatch(getTimesSuccess(res.data));
-        navigate('/historydetail');
+        navigate(url);
     }catch(err){
         dispatch(getTimesFailed());
         alert('Error: ' + err.message);
     }
 }
 
-export const getUserInfo = async (accessToken, dispatch) => {
+export const getUserInfo = async (accessToken, dispatch,navigate) => {
     dispatch(getUserInfoStart());
     try {
         const res = await axios.get('/user/detail',{
@@ -107,6 +110,7 @@ export const getUserInfo = async (accessToken, dispatch) => {
     }catch(err){
         dispatch(getUserInfoFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -138,7 +142,7 @@ export const submit = async(answers, dispatch, navigate) => {
     }
 }
 
-export const getAllQuestions = async (accessToken, dispatch) => {
+export const getAllQuestions = async (accessToken, dispatch, navigate) => {
     dispatch(getQuestionsStart());
     try {
         const res = await axios.get('/question/all?size=20',{
@@ -149,10 +153,11 @@ export const getAllQuestions = async (accessToken, dispatch) => {
     }catch(err){
         dispatch(getQuestionsFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
-export const getQuestionsAdmin = async (page, dispatch) => {
+export const getQuestionsAdmin = async (page, dispatch, navigate) => {
     dispatch(getQuestionsAdminStart());
     try {
         const res = await axios.get(`/getListQuestion/${page}/5`,{
@@ -162,6 +167,7 @@ export const getQuestionsAdmin = async (page, dispatch) => {
     }catch(err){
         dispatch(getQuestionsAdminFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -181,7 +187,7 @@ export const addQuestion = async(formData, dispatch) => {
     }
 }
 
-export const getAllPosts = async (page, dispatch) => {
+export const getAllPosts = async (page, dispatch, navigate) => {
     dispatch(getPostsStart());
     try {
         const res = await axios.get(`/getAllPost/${page}/5`,{
@@ -191,6 +197,7 @@ export const getAllPosts = async (page, dispatch) => {
     }catch(err){
         dispatch(getPostsFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -214,6 +221,7 @@ export const getPostDetail = async (id, dispatch, navigate) => {
     }catch(err){
         dispatch(getPostDetailFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -260,7 +268,7 @@ export const postQuestion = async(accessToken, newQuestion, dispatch) => {
     }
 }
 
-export const getAllSchools = async (dispatch) => {
+export const getAllSchools = async (dispatch, navigate) => {
     dispatch(getSchoolsStart());
     try {
         const res = await axios.get('getListSchool',{
@@ -270,6 +278,7 @@ export const getAllSchools = async (dispatch) => {
     }catch(err){
         dispatch(getSchoolsFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -301,7 +310,7 @@ export const changeSchoolName = async(newName, dispatch) => {
     }
 }
 
-export const getAllDocuments = async (dispatch) => {
+export const getAllDocuments = async (dispatch, navigate) => {
     dispatch(getDocumentsStart());
     try {
         const res = await axios.get('getListDocument',{
@@ -311,6 +320,7 @@ export const getAllDocuments = async (dispatch) => {
     }catch(err){
         dispatch(getDocumentsFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 
@@ -342,7 +352,19 @@ export const editDocument = async(id, newDocument, dispatch) => {
     }
 }
 
-export const getDashboard = async (dispatch) => {
+export const deleteDocument = async(id, dispatch) => {
+    dispatch(deleteDocumentStart());
+    try{
+        const res = await axios.post(`/deleteDocument/${id}`)
+        dispatch(deleteDocumentSuccess(res.data));
+        alert('Xóa thành công!')
+    }catch(err){
+        dispatch(deleteDocumentFailed());
+        alert('Error: ' + err.message);
+    }
+}
+
+export const getDashboard = async (dispatch, navigate) => {
     dispatch(getDashboardStart());
     try {
         const res = await axios.get('getDashboard',{
@@ -352,6 +374,35 @@ export const getDashboard = async (dispatch) => {
     }catch(err){
         dispatch(getDashboardFailed());
         alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
+    }
+}
+
+export const getStatisticByFilter = async (min, max, dispatch, navigate) => {
+    dispatch(getStatisticStart());
+    try {
+        const res = await axios.get(`getListHistoryFilter?min=${min}&max=${max}`,{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getStatisticSuccess(res.data));
+    }catch(err){
+        dispatch(getStatisticFailed());
+        alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
+    }
+}
+
+export const getStatisticBySearch = async (mssv, dispatch, navigate) => {
+    dispatch(getStatisticStart());
+    try {
+        const res = await axios.get(`getListHistorySearch?search=${mssv}`,{
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(getStatisticSuccess(res.data));
+    }catch(err){
+        dispatch(getStatisticFailed());
+        alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
     }
 }
 

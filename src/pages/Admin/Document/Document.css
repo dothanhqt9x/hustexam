@@ -19,9 +19,17 @@
 }
 
 .btn-edit{
-    width: 50px;
+    width: 40px;
     height: 30px;
     margin-left: 20px;
+    padding-top: 5px !important; 
+    padding-left: 0px !important;  
+}
+
+.btn-delete{
+    width: 40px;
+    height: 30px;
+    margin-left: 10px;
     padding-top: 5px !important; 
     padding-left: 0px !important;  
 }

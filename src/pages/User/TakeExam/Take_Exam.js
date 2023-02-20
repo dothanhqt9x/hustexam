@@ -10,7 +10,7 @@ import { submit } from "../../../redux/apiRequest";
 
 var currentIndex = 0;
 var point = 0;
-var time;
+var time = 0;
 var questionsList;
 var questionsAnsweredList = [];
 var chosen = [];
@@ -36,8 +36,11 @@ function TakeExam(){
             navigate('/login');
         }
         else{
-            getAllQuestions(user?.accessToken, dispatch)
+            getAllQuestions(user?.accessToken, dispatch, navigate)
         }
+        questionsAnsweredList = [];
+        point = 0;
+        time = 0;
      },[])
 
     useEffect(() => {

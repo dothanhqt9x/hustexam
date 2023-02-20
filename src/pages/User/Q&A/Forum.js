@@ -12,7 +12,7 @@ function Forum(){
     const navigate = useNavigate();
     useEffect(() => {
         page = 0
-        getAllPosts(page, dispatch);
+        getAllPosts(page, dispatch, navigate);
     },[])
     const listPosts = useSelector(state => state.post.posts.allPosts);
     const user = useSelector(state => state.auth.login.currentUser);
@@ -25,7 +25,7 @@ function Forum(){
     const handlePost = () => {
         postQuestion(user.accessToken, newPost, dispatch);
         setShow(false);
-        getAllPosts(page, dispatch);
+        getAllPosts(page, dispatch, navigate);
     }
     const handleSearch = () => {
         searchPost(keyword, dispatch);
@@ -73,31 +73,31 @@ function Forum(){
                     <a className="page-link" href="#!" onClick={() => {
                             if(page === 0) return;
                             page--;
-                            getAllPosts(page, dispatch);
+                            getAllPosts(page, dispatch, navigate);
                         }}>Previous</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 0;
-                            getAllPosts(0, dispatch);
+                            getAllPosts(0, dispatch, navigate);
                         }}>1</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 1;
-                            getAllPosts(1, dispatch);
+                            getAllPosts(1, dispatch, navigate);
                         }}>2</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page = 2;
-                            getAllPosts(2, dispatch);
+                            getAllPosts(2, dispatch, navigate);
                         }}>3</a>
                     </li>
                     <li className="page-item">
                         <a className="page-link" href="#!" onClick={() => {
                             page++;
-                            getAllPosts(page, dispatch);
+                            getAllPosts(page, dispatch, navigate);
                         }}>Next</a>
                     </li>
                 </ul>

@@ -44,7 +44,7 @@ function HistoryDetail(){
                 <h4>Điểm: {point}/20</h4>
                 <div className="question-list-his">
                     {questionsAnsweredList?.map((question, index) => (
-                        <QuestionItem
+                        <QuestionItem key={index}
                             index={index}
                             question={question.question}
                             answers = {question.answer}

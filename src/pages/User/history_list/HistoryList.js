@@ -21,7 +21,7 @@ function HistoryList(){
                                     <li>Lần {index + 1}: {times.name}</li>
                                     <a href="#!" onClick={() => {
                                         const id = times.id;
-                                        getHistoryDetail(id, dispatch, navigate);
+                                        getHistoryDetail(id, dispatch, navigate, '/historydetail');
                                     }}>Xem chi tiết</a>
                                 </div>
                             )

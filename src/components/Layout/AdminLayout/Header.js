@@ -28,7 +28,7 @@ function Header() {
                 <img src={logo} alt="logo" className="logo" onClick={handleClickLogo}/>
                 <a style={{textDecoration: 'none'}} href='#!'><h3 className="app-name">HustExam</h3></a>
                 <div>
-        <nav className="navbar navbar-expand-lg navbar-light navbar-custom" id="navbar">
+        <nav className="navbar navbar-expand-lg navbar-light navbar-custom" id="navbar" style={{position:'relative', bottom: '20px'}}>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
@@ -45,7 +45,12 @@ function Header() {
                   getAllDocuments(dispatch);
                   navigate('/documentAdmin');
               }}>Tài liệu</a>
-            </li> 
+            </li>
+            <li className="nav-item">
+              <a className="nav-link"  href='#!' onClick={() => {
+                  navigate('/statistic');
+              }}>Thống kê</a>
+            </li>  
             <li className="nav-item">
               <a className="nav-link"  href='#!' onClick={() => {
                   navigate('/dashboard');

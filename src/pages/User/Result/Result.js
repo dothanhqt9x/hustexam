@@ -11,8 +11,7 @@ function Result(){
       const dispatch = useDispatch();
       const navigate = useNavigate();
       const handleSeeResult = () => {
-          getHistoryDetail(list[list.length - 1].id, dispatch, navigate);
-          getHistory(dispatch);
+          getHistory(dispatch, navigate);
       }
     return(
         <div className="row-result">
@@ -31,8 +30,8 @@ function Result(){
                 <p>Tổng số câu trả lời đúng: {point}/20</p>
                 <p>Điểm: {point / 20 * 10}</p>
             </div>
-                {/* <button className="btn-retakeTest" onClick={handleSeeResult}>Xem chi tiết kết quả</button> */}
-                <a href="/" style={{marginLeft: '290px'}}>Trở về trang chủ</a>
+                <button className="btn-retakeTest" onClick={handleSeeResult}>Xem lịch sử làm bài</button>
+                {/* <a href="/" style={{marginLeft: '290px'}}>Xem lịch sử làm bài</a> */}
         </div>
       </div>
     )
