@@ -2,7 +2,6 @@ import './Result.css';
 import {point, time} from '../TakeExam/Take_Exam'
 import { useDispatch, useSelector } from 'react-redux';
 import { getHistory } from '../../../redux/apiRequest';
-import { getHistoryDetail } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
 
 function Result(){

@@ -3,7 +3,6 @@ import "./Home_User.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllQuestions, getUserInfo } from "../../../redux/apiRequest";
 import { useEffect } from 'react'
-import { questionsAnsweredList, point, time } from '../TakeExam/Take_Exam'
 function HomeUser() {
   const userLog = useSelector((state) => state.auth.login?.currentUser);
     const dispatch = useDispatch();
@@ -23,7 +22,6 @@ function HomeUser() {
            navigate('/login');
         }
         else { 
-          questionsAnsweredList.length = 0;
             navigate('/takeexam');
       }
     }

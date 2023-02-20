@@ -41,6 +41,7 @@ function TakeExam(){
         questionsAnsweredList = [];
         point = 0;
         time = 0;
+        answersList = [];
      },[])
 
     useEffect(() => {
