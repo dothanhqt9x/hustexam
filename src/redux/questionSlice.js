@@ -18,6 +18,11 @@ const questionSlice = createSlice({
             isFetching: false,
             error: false,
         },
+        editQuestion:{
+            newQuestion: null,
+            isFetching: false,
+            error: false
+        },
     },
     reducers: {
         getQuestionsStart: (state) => {
@@ -55,6 +60,18 @@ const questionSlice = createSlice({
             state.addQuestion.error = true;
             state.addQuestion.success = false;
         },
+        editQuestionStart: (state) => {
+            state.editQuestion.isFetching = true;
+        },
+        editQuestionSuccess: (state, action) => {
+            state.editQuestion.isFetching = false;
+            state.editQuestion.newDocument = action.payload;
+            state.editQuestion.error = false;
+        },
+        editQuestionFailed: (state) => {
+            state.editQuestion.isFetching = false;
+            state.editQuestion.error = true;
+        },
     }
 })
 
@@ -67,7 +84,10 @@ export const {
     addQuestionFailed,
     getQuestionsAdminStart,
     getQuestionsAdminSuccess,
-    getQuestionsAdminFailed
+    getQuestionsAdminFailed,
+    editQuestionStart,
+    editQuestionSuccess,
+    editQuestionFailed
 } = questionSlice.actions;
 
 export default questionSlice.reducer;

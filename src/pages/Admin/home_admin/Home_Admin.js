@@ -6,9 +6,9 @@ import {FaPlus} from 'react-icons/fa'
 import {FaEye} from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getQuestionsAdmin, getStatisticByFilter } from '../../../redux/apiRequest';
+import { editDocument, getQuestionsAdmin, getStatisticByFilter } from '../../../redux/apiRequest';
 import { Fragment } from 'react';
-import { addQuestion } from '../../../redux/apiRequest';
+import { addQuestion, editQuestion } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
 
 function QuestionItem(question){
@@ -49,6 +49,7 @@ function getTime(){
 }
 
 var key = [];
+var keyEdit = [];
 var answers = [];
 var timee = '';
 var page = 0;
@@ -63,8 +64,19 @@ function HomeAdmin(){
     const [answerB, setAnswerB] = useState('');
     const [answerC, setAnswerC] = useState('');
     const [answerD, setAnswerD] = useState('');
+    const [answers, setAnswers] = useState([]);
+    const [id, setId] = useState();
     const navigate = useNavigate();
     const [checkedState, setCheckedState] = useState(new Array(5).fill(false))
+    // edit 
+    const [showEdit, setShowEdit] = useState(false);
+    const [titleEdit, setTitleEdit] = useState(''); 
+    const [answerAEdit, setAnswerAEdit] = useState('');
+    const [answerBEdit, setAnswerBEdit] = useState('');
+    const [answerCEdit, setAnswerCEdit] = useState('');
+    const [answerDEdit, setAnswerDEdit] = useState('');
+    const [answersEdit, setAnswersEdit] = useState([]);
+
     const handleCheckbox = (position) => {
         const updatedCheckedState = checkedState.map((item, index) =>
         index === position ? !item : item );
@@ -79,6 +91,11 @@ function HomeAdmin(){
         question: title,
         answer: answers,
         key: key,
+    }
+    const editNewQuestion = {
+        question: titleEdit,
+        answer: answersEdit,
+        key: key
     }
     useEffect(() => {
             getQuestionsAdmin(0,dispatch, navigate);
@@ -100,6 +117,23 @@ function HomeAdmin(){
         answers = []
         setShow(false);
     }
+
+    const handleEdit = () => {
+        if(answerAEdit !== '') answersEdit.push(answerAEdit);
+        if(answerBEdit !== '') answersEdit.push(answerBEdit);
+        if(answerCEdit !== '') answersEdit.push(answerCEdit);
+        if(answerDEdit !== '') answersEdit.push(answerDEdit);
+        // timee = getTime();
+        // console.log(image);
+        console.log(id);
+        console.log(editNewQuestion);
+        editQuestion(id, editNewQuestion, dispatch);
+        setCheckedState(new Array(5).fill(false));
+        key = [];
+        answersEdit = []
+        setShowEdit(false);
+    }
+
     return(
         <section className="admin-section">
         <div className="row">
@@ -163,12 +197,80 @@ function HomeAdmin(){
                     {
                       questions ? (
                         questions.map((question, index) => (
+
+                            <>
                             <QuestionItem
                                 index={question.questionNumber}
                                 question={question.question}
                                 answers = {question.answer}
                                 correctAnswers = {question.key}
                             />
+                            <button className='btn-edit' onClick={() => {
+                                            setShowEdit(!showEdit)
+                                            setId(question.questionNumber)
+                                            }}><h4>Sửa</h4></button>
+                             { (showEdit && question.questionNumber === id) ? (
+                                <form className='form-add-question'>
+                    <label htmlFor="title">Câu hỏi</label>
+                    <input type="text" id='title' name='title'  placeholder={question.question}
+                        onChange = { (e) =>setTitleEdit(e.target.value)}/>
+                    <br />
+
+                    
+                    {/* {question.answer?.map((answer, index) => {
+                                        return(
+                                        <input type="text" className='answer-his' onChange={(e) => setAnswersEdit(e.target.value)} key={index} defaultValue={answer}></input>
+                                        )
+                                    })} */}
+
+                                    <br />
+                    <label htmlFor="a">Đáp án A</label>
+                    <input type="text" id='a' name='a' 
+                        onChange = { (e) =>setAnswerAEdit(e.target.value)} placeholder={question.answer[0]}/>
+                    <br />
+                    <label htmlFor="b">Đáp án B</label>
+                    <input type="text" id='b' name='b' 
+                        onChange = { (e) =>setAnswerBEdit(e.target.value)} placeholder={question.answer[1]}/>
+                    <br />
+                    <label htmlFor="c">Đáp án C</label>
+                    <input type="text" id='c' name='c' 
+                        onChange = { (e) =>setAnswerCEdit(e.target.value)} placeholder={question.answer[2]}/>
+                    <br />
+                    <label htmlFor="d">Đáp án D</label>
+                    <input type="text" id='d' name='d' 
+                        onChange = { (e) =>setAnswerDEdit(e.target.value)} placeholder={question.answer[3]}/>
+                    <br />                    
+                
+                    <br />
+                    <div className='key'>
+                        <label htmlFor="key">Đáp án đúng</label>
+                        <input type="checkbox" name='aa' id='aa' value={1}
+                            checked={checkedState[1]}
+                            onChange={() => {handleCheckbox(1)}}/>
+                        <label htmlFor="aa">A</label>
+                        <input type="checkbox" name='bb' id='bb' value={2}
+                            checked={checkedState[2]}
+                            onChange={() => {handleCheckbox(2)}}/>
+                        <label htmlFor="bb">B</label>
+                        <input type="checkbox" name='cc' id='cc'
+                           value={3}
+                           checked={checkedState[3]}
+                           onChange={() => {handleCheckbox(3)}}/>
+                        <label htmlFor="cc">C</label>
+                        <input type="checkbox" name='dd' id='dd'
+                          value={4}
+                          checked={checkedState[4]}
+                          onChange={() => {handleCheckbox(4)}}/>
+                        <label htmlFor="dd">D</label>
+                    </div>
+
+                    <button className='btn-edit-doc' onClick={handleEdit}><h4>Xác nhận</h4></button>
+                    {/* <label htmlFor="aa">A</label>
+                    <input type="checkbox" name='aa' id='aa'/> */}
+                </form>
+                                ) : Fragment}
+                            </>
+                          
                     ))) : (Fragment)
                     }   
                 </div>

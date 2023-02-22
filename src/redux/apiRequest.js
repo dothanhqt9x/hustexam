@@ -12,6 +12,7 @@ import { addSchoolFailed, addSchoolStart, addSchoolSuccess, changeSchoolNameStar
 import { addDocumentFailed, addDocumentStart, addDocumentSuccess, deleteDocumentFailed, deleteDocumentStart, deleteDocumentSuccess, editDocumentFailed, editDocumentStart, editDocumentSuccess, getDocumentsFailed, getDocumentsStart, getDocumentsSuccess } from './documentSlice';
 import { uploadAvatarFailed, uploadAvatarStart, uploadAvatarSuccess } from './avatarSlice';
 import { getDashboardFailed, getDashboardStart, getDashboardSuccess, getStatisticFailed, getStatisticStart, getStatisticSuccess } from './dashboardSlice';
+import { editQuestionStart, editQuestionSuccess, editQuestionFailed } from './questionSlice'
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -348,6 +349,20 @@ export const editDocument = async(id, newDocument, dispatch) => {
         alert('Thay đổi thành công!')
     }catch(err){
         dispatch(editDocumentFailed());
+        alert('Error: ' + err.message);
+    }
+}
+
+export const editQuestion = async(id, editNewQuestion, dispatch) => {
+    dispatch(editQuestionStart());
+    try{
+        const res = await axios.post(`/question/edit?questionNumber=${id}`, editNewQuestion, {
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(editQuestionSuccess(res.data));
+        alert('Thay đổi thành công!')
+    }catch(err){
+        dispatch(editQuestionFailed());
         alert('Error: ' + err.message);
     }
 }
