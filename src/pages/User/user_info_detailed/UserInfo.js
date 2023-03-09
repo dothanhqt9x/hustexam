@@ -11,12 +11,14 @@ function UserInfo(){
     const [dob, setDob] = useState('');
     const [show, setShow] = useState(false);
     const [address, setAddress] = useState('');
+    const [name, setName] = useState('');
     const [avatar, setAvatar] = useState();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const newInfo = {
       address: address,
-      name: user.username
+      name: name
     }
     const formData = new FormData();
     formData.append('file', avatar);
@@ -28,8 +30,8 @@ function UserInfo(){
     }
     const handleSave = (e) => {
       console.log(newInfo);
-        e.preventDefault();
-        changeUserInfo(userLog.accessToken,newInfo,dispatch,navigate);
+      e.preventDefault();
+      changeUserInfo(userLog.accessToken,newInfo,dispatch,navigate);
     }
 
     return(
@@ -51,15 +53,27 @@ function UserInfo(){
           <h2>Thông tin cá nhân</h2>
           <div>
             <label htmlFor="username">Họ và tên:</label>
-            <input type="text" id="username" name="username" value={user.username} disabled/>
+            <input type="text" id="username" name="username" defaultValue={user.username} onChange = { (e) => setName(e.target.value)}/>
           </div>
           <div>
             <label htmlFor="mssv">Mã số sinh viên: </label>
             <input type="text" id="mssv" name="mssv" value={user.mssv} disabled/>
           </div>
           <div>
+            <label htmlFor="email">Email: </label>
+            <input type="text" id="email" name="email" value={user.email} disabled/>
+          </div>
+          <div>
+            <label htmlFor="gender">Giới tính: </label>
+            <input type="text" id="gender" name="gender" value={user.gender} disabled/>
+          </div>
+          <div>
             <label htmlFor="school">Trường/Viện: </label>
             <input type="text" id="school" name="school" value={user.school} disabled/>
+          </div>
+          <div>
+            <label htmlFor="role">Chức danh: </label>
+            <input type="text" id="role" name="role" value={user.role === '01' ? "Sinh Viên" : "Giảng viên"} disabled/>
           </div>
           <div>
             <label htmlFor="dob">Ngày sinh: </label>
@@ -67,7 +81,7 @@ function UserInfo(){
           </div>
           <div style={{display: 'flex'}}>
             <label htmlFor="address">Địa chỉ: </label>
-                <select name="address" id="address" onChange = { (e) =>setAddress(e.target.value)}>
+                <select name="address" id="address" defaultValue={user.address} onChange = { (e) =>setAddress(e.target.value)}>
                 <option value="An Giang">An Giang</option>
                 <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
                 <option value="Bắc Giang">Bắc Giang</option>

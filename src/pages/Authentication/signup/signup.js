@@ -12,6 +12,7 @@ function Signup(){
     const [mssv, setmssv] = useState("");
     const [idSchool, setIdSchool] = useState();
     const [gender, setGender] = useState("");
+    const [role, setRole] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     useEffect(()=>{
@@ -26,10 +27,11 @@ function Signup(){
             name: fullname,
             schoolId: ~~idSchool,
             mssv: mssv,
-            gender: gender
+            gender: gender,
+            role: role,
         }
         if(email === "" || password === "" || fullname === ""|| mssv === ""
-            || idSchool === undefined || gender === ""){
+            || idSchool === undefined || gender === "" || role === ""){
                 alert("Vui lòng nhập đủ các trường!")
                 return;
             }
@@ -75,6 +77,11 @@ function Signup(){
                             <option value=''>Giới tính</option>
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
+                         </select>
+                         <select name="role" id="role" onChange = { (e) =>setRole(e.target.value)}>
+                            <option value=''>Chức vụ</option>
+                            <option value="01">Sinh viên</option>
+                            <option value="02">Giảng viên</option>
                          </select>
                         <input type="email" className="input-box" placeholder="Email" 
                             id="email" name="email" 

@@ -13,6 +13,7 @@ import { addDocumentFailed, addDocumentStart, addDocumentSuccess, deleteDocument
 import { uploadAvatarFailed, uploadAvatarStart, uploadAvatarSuccess } from './avatarSlice';
 import { getDashboardFailed, getDashboardStart, getDashboardSuccess, getStatisticFailed, getStatisticStart, getStatisticSuccess } from './dashboardSlice';
 import { editQuestionStart, editQuestionSuccess, editQuestionFailed } from './questionSlice'
+import { getAccountsStart, getAccountsSuccess, getAccountsFailed, changeStatusAccountStart, changeStatusAccountSuccess, changeStatusAccountFailed } from './accountSlice'
 
 export const loginUser = async(user, dispatch,navigate) => {
     dispatch(loginStart())
@@ -421,3 +422,28 @@ export const getStatisticBySearch = async (mssv, dispatch, navigate) => {
     }
 }
 
+export const getAllAccounts = async (dispatch, navigate) => {
+    dispatch(getAccountsStart());
+    try {
+        const res = await axios.get('getListAccount')
+        dispatch(getAccountsSuccess(res.data));
+    }catch(err){
+        dispatch(getAccountsFailed());
+        alert(err.message);
+        if(err.message === 'Request failed with status code 403') navigate('/login')
+    }
+}
+
+export const changeStatusAccount = async (newAccountStatus, dispatch, navigate) => {
+    dispatch(changeStatusAccountStart());
+    try {
+        const res = await axios.post('editStatusAccount', newAccountStatus,  {
+            headers: { ContentType: 'application/json'},
+        })
+        dispatch(changeStatusAccountSuccess(res.data))
+    } catch(err) {
+        dispatch(changeStatusAccountFailed());
+        alert(err.message)
+        if(err.message === 'Request failed with status code 403') navigate('/login')
+    }
+}

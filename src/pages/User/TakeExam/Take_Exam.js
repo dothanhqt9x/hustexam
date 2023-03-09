@@ -1,5 +1,5 @@
 import "./Take_Exam.css";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
 import {useNavigate} from 'react-router-dom';
 import { useState, useEffect, memo} from 'react'
@@ -79,6 +79,28 @@ function TakeExam(){
         }
         else
             currentIndex++;
+        setQuestion(questionsList[currentIndex]);
+        setCheckedState(new Array(question.answer.length).fill(false))
+        setSelected();
+    }
+
+    function renderPrevQuestion() {
+        questionAnswered.questions = question;
+        if(question.key.length === 1){
+            questionAnswered.answersChoose.push(selected);
+        }
+        else {
+            questionAnswered.answersChoose = chosen;
+            questionAnswered.answersChoose.sort(function(a, b){return a - b});
+            chosen = []
+        }
+        questionAnswered.questionNumber = question.questionNumber;
+        questionsAnsweredList.push(questionAnswered);
+        if (currentIndex === 0) {
+            return;
+        }
+        else
+            currentIndex--;
         setQuestion(questionsList[currentIndex]);
         setCheckedState(new Array(question.answer.length).fill(false))
         setSelected();
@@ -169,6 +191,7 @@ function TakeExam(){
             </div>
         </div>
             <div className="button">        
+            <button id="next" onClick={renderPrevQuestion}>Prev<FaArrowCircleLeft style={{marginLeft: '20px',position: 'relative',top: '2px'}}/></button>
             <button id="next" onClick={renderNextQuestion}>Next<FaArrowCircleRight style={{marginLeft: '20px',position: 'relative',top: '2px'}}/></button>
             <button id="finish" onClick={handleSubmit} disabled = {(currentIndex !== questionsList.length - 1) ? 'true' : ''}>Submit</button>
             </div>  
@@ -177,4 +200,4 @@ function TakeExam(){
 }
 export default memo(TakeExam);
 
-export {point, time, questionsAnsweredList};
+export {point, time, questionsAnsweredList};       

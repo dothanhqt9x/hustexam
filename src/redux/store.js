@@ -13,6 +13,7 @@ import schoolReducers from './schoolSlice';
 import documentReducers from './documentSlice';
 import avatarReducers from './avatarSlice';
 import dashboardReducers from './dashboardSlice';
+import accountReducers from './accountSlice'
 
 import {
     persistStore,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
     document: documentReducers,
     avatar: avatarReducers,
     dashboard: dashboardReducers,
+    account: accountReducers,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

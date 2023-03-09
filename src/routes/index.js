@@ -15,6 +15,7 @@ import Document from '../pages/Admin/Document/Document';
 import DocumentUser from '../pages/User/document/DocumentUser';
 import Dashboard from '../pages/Admin/Dashboard/Dashboard';
 import Statistic from '../pages/Admin/Statistic/Statistic';
+import Account from '../pages/Admin/Account/Account';
 
 const publicRoutes = [
     { path: '/login', component: Login, layout: null},
@@ -35,6 +36,7 @@ const publicRoutes = [
     { path: '/dashboard', component: Dashboard, layout: 'admin'},
     { path: '/statistic', component: Statistic, layout: 'admin'},
     { path: '/historydetailAdmin', component: HistoryDetail, layout: 'admin'},
+    { path: '/account', component: Account, layout: 'admin'}
 ]
 
 const privateRoutes = []

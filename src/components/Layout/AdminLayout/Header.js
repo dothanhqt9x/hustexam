@@ -56,6 +56,11 @@ function Header() {
                   navigate('/dashboard');
               }}>Dashboard</a>
             </li> 
+            <li className="nav-item">
+              <a className="nav-link"  href='#!' onClick={() => {
+                  navigate('/account');
+              }}>Accounts</a>
+            </li> 
           </ul>
         </div>
         <div className='admin'>
