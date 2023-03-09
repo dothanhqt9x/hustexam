@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Fragment } from 'react';
 import { postQuestion, getPostDetail } from '../../../redux/apiRequest';
 import { useNavigate } from 'react-router-dom';
+import avt from './avt.jpg'
 
 var page = 0;
 function Forum(){
@@ -54,6 +55,7 @@ function Forum(){
                 return(
                     <div key={index} className = 'question'>
                         <div className='question-content'>
+                            <img src={question?.avatar ? question?.avatar : avt} alt="avatar" />
                             <h3 className='id-his'>{question?.username}</h3>
                             <p>Câu hỏi: <h4>{question?.content}</h4></p>
                         </div>

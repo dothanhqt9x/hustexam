@@ -25,6 +25,15 @@
     position: relative;
     left: 600px;
 }
+
+.question-content img{
+    vertical-align: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
 .question-content h4{
     font-size: 16px;
     position: relative;
@@ -32,4 +41,12 @@
     background-color: white;
     padding: 5px 0px 5px 10px;
     border-radius: 5px;
+}
+
+.question-content img{
+    vertical-align: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 30px;
+    margin-top: 10px;
 }
